@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/loginTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="titulo">Cadastre-se</ui:define>
+       <h:outputStylesheet library="css" name="style.css"/>   
+	<ui:define name="content">
+	<center>
+	
+		<div id="login-dialog"  class="divCadastro">
+		<b:messages id="messages" autoUpdate="true" closable="true"  col-md="12"/>
+		<h1 style="color:#5B6063">Cadastre - se</h1>
+				
+			<h:form id="frm" prependId="false">						
+				
+					<b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome" label="Nome"
+						value="Nome: #{usuarioController.usuario.nome}" />
+											
+					<b:inputText id="Username"  required="true" required-message="O campo Nome de usuário é obrigatório" value="#{usuarioController.usuario.username}"
+					 label="Nome de usuário" />
+						
+					<b:inputSecret id="password" required="true" required-message="O campo Senha é obrigatório" value="#{usuarioController.usuario.password}"
+					 label="Senha" />
+						
+					<b:inputText required-message="O campo email é obrigatório" required="true" type="email" label="Email" value="#{usuarioController.usuario.email}" />
+										
+					<b:inputText mask="(9{2})9{4,5}-9{4,7}" required="false" type="text" label="Telefone" value="#{usuarioController.usuario.telefone}"/>					
+					
+					<b:commandButton style-class="saveBtn" value="Criar meu usuário" look="success"
+						action="#{usuarioController.salvar}" />						
+					<br/>				
+			</h:form>
+			
+		</div>
+		</center>			
+	</ui:define>
+</ui:composition>

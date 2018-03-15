@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="content">
+		
+			<body>
+				<h:panelGroup>
+					<b:form id="formMarcas">
+						<b:messages  col-md="12" showDetail="true" />
+						<b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao" col-md="12"
+							value="#{marcasController.marcas.descricao}" label="Descrição" />				
+						<b:commandButton col-md="2" value="Novo" action="#{marcasController.novo}" />										
+						<b:commandButton col-md="2" look="success" icon="check" value="Salvar"	action="#{marcasController.salvar}" />						
+					</b:form>
+
+				</h:panelGroup>
+				<h:panelGroup style="width:50%">
+					<b:form id="formMarcasLista"
+						horizontal="true">
+						<b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
+							value="#{marcasController.listMarcas}" var="c"
+							style="margin-top:7%" 
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+							<b:dataTableColumn value="#{c.descricao}" label="Descrição" />
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Editar" />
+								</f:facet>
+								<b:commandButton value="Editar" icon="pencil"
+									styleClass="btn btn-default"
+									action="#{marcasController.editar(c)}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<b:commandButton value="Excluir" icon="trash"
+									styleClass="btn btn-danger"
+									action="#{marcasController.excluir(c.id)}"
+									onclick="if(!confirm('Deseja realmente excluir?!')) return false;" />
+							</h:column>
+						</b:dataTable>
+					</b:form>
+
+				</h:panelGroup>
+			</body>
+		
+	</ui:define>
+</ui:composition>
+
+
+

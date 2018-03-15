@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      >
+    <h:head>
+        <title>Controle de veículos</title>
+        <meta name="author" content="Matheus E Cobalchini" />
+        <meta name="robots" content="index, follow" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>             
+        <meta http-equiv="PRAGMA" content="NO-CACHE" />
+        <meta name="copyright" content="Matheus E. Cobalchini" />
+        <h:outputStylesheet library="css" name="style.css"/>        
+    </h:head>
+	<style type="text/css">
+    .Bimage{background-image:url('#{request.contextPath}img/background.jpg');}
+	</style>
+    <h:body styleClass="Bimage" style="padding-top: 85px;padding-bottom: 85px;" addLabels="false" addMessages="false">
+
+        <b:container>
+            <ui:insert name="content"/>
+        </b:container>
+        
+
+        
+    </h:body>
+</html>

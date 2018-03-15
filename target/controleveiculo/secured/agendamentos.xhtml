@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="content">
+		<h:head>
+			<title>Agendamentos - Spring + JSF</title>
+		</h:head>
+		<b:container>
+			<body>
+				<h:panelGroup>
+					<b:form id="formAgendamentos">
+						<b:messages  col-md="12" showDetail="true" />
+						<b:inputText required="true" required-message="O campo Descriçao é obrigatório" id="descricao" col-md="12"
+							value="#{agendamentosController.agendamentos.descricao}" label="Descrição" />
+						
+						<b:selectOneMenu required="true" required-message="O campo Despesa é obrigatório" id="despesa" label="Despesa" col-md="5"
+							value="#{agendamentosController.agendamentos.despesa}"
+							converter="#{despesasConverter}">
+							<f:selectItems var="despesa" value="#{agendamentosController.listDespesas}"
+								itemLabel="#{despesa.descricao}" itemValue="#{despesa.id}" />
+						</b:selectOneMenu>
+						<b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo" label="Veículo" col-md="5"
+							value="#{agendamentosController.agendamentos.veiculo}"
+							converter="#{veiculoConverter}">
+							<f:selectItems var="veiculo" value="#{agendamentosController.listVeiculos}"
+								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
+						</b:selectOneMenu>
+				        <b:dateTimePicker format="DD/MM/YYYY" required-message="O campo Data é obrigatório" mode="toggle-icon" showWeek="true" value="#{agendamentosController.agendamentos.data}" required="true"  label="Data:" col-sm="2" />
+				        
+						<b:commandButton col-md="2" value="Novo" action="#{agendamentosController.novo}" />
+						<b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+							action="#{agendamentosController.salvar}" />
+						
+					</b:form>
+
+				</h:panelGroup>
+				<h:panelGroup style="width:50%">
+					<b:form id="formAgendamentosLista" style="margin-top:5%"
+						horizontal="true">
+						<b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
+							value="#{agendamentosController.listAgendamentos}" var="c"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+							<b:dataTableColumn value="#{c.descricao}" label="Descrição" />
+							<b:dataTableColumn value="#{c.despesa.descricao}" label="Despesa" />
+							<b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo" />
+							<b:dataTableColumn value="#{c.data}" label="Data" />
+						<h:column>
+								<f:facet name="header">
+									<h:outputText value="Editar" />
+								</f:facet>
+								<b:commandButton value="Editar" look=""
+									action="#{modeloController.editar(e)}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<b:commandButton value="Excluir" look="danger"
+									action="#{modeloController.excluir(e.id)}"
+									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
+							</h:column>
+						</b:dataTable>
+					</b:form>
+
+				</h:panelGroup>
+			</body>
+		</b:container>
+	</ui:define>
+</ui:composition>
+
+
+

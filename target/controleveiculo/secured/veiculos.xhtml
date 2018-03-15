@@ -1,0 +1,75 @@
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="content">
+		<b:container>
+		<h:body>		
+		<h:panelGroup style="align:center">
+			
+			<b:messages></b:messages>
+				<h:form id="formVeiculo">
+
+					<b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome" label="Nome do veículo" col-md="12"
+						value="#{veiculoController.veiculo.nome}" />
+
+					<b:inputText mask="A{1,3}-9{3,4}" id="placa"  required="true" required-message="O campo Placa é obrigatório" value="#{veiculoController.veiculo.placa}"
+						col-md="2" label="Placa" />
+						
+					<b:inputText mask="9{1,2}" id="litragem"  required="true" required-message="O campo Litragem é obrigatório" value="#{veiculoController.veiculo.litragem}"
+						col-md="3" label="Quantos Km/Litro o seu carro faz?" />
+						
+					
+					<b:selectOneMenu required="true" required-message="O campo Modelo é obrigatório" id="modelo" label="Modelo" col-md="3"
+						value="#{veiculoController.veiculo.modelo}"
+						converter="#{modeloConverter}">
+												
+						<f:selectItems var="modelo" value="#{veiculoController.listModelo}"
+							itemLabel="#{modelo.descricao}" itemValue="#{modelo.id}" />
+					</b:selectOneMenu>
+					
+
+					<b:commandButton col-md="2" value="Salvar" look="success"
+						action="#{veiculoController.salvar}" />
+					<b:commandButton  col-md="2" value="Novo"
+						action="#{veiculoController.novo}" />
+				</h:form>
+			</h:panelGroup>
+				<h:panelGroup >
+					<h:form id="formVeiculoLista" style="margin-top:18%">
+						<b:dataTable styleclass="table-responsive" responsive="true" paginated="false" fixedHeader="true" value="#{veiculoController.veiculos}" col-sm="12" 
+							var="e"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+							<b:dataTableColumn value="#{e.nome}" label="Nome" />
+							<b:dataTableColumn value="#{e.placa}" label="Placa" />
+							<b:dataTableColumn value="#{e.modelo.descricao}" label="Modelo" />
+							<b:dataTableColumn value="#{e.litragem}" label="Km/L" />
+							<b:dataTableColumn value="#{e.usuario.nome}" label="Usuário" />
+							
+						<h:column>
+								<f:facet name="header">
+									<h:outputText value="Editar" />
+								</f:facet>
+								<b:commandButton value="Editar" look=""
+									action="#{veiculoController.editar(e)}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<b:commandButton value="Excluir" look="danger"
+									action="#{veiculoController.excluir(e.id)}"
+									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
+							</h:column>
+						</b:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:body>
+		</b:container>
+	</ui:define>
+</ui:composition>
+

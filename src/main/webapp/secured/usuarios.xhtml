@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="content">
+		<b:container>
+		<h:body>
+		<h:panelGroup style="align:center">
+			
+			<b:messages></b:messages>
+				<h:form id="formUsuario">
+
+					<b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome" label="Nome" col-md="12"
+						value="#{usuarioController.usuario.nome}" />
+
+					<b:inputText id="Username"  required="true" required-message="O campo Username é obrigatório" value="#{usuarioController.usuario.username}"
+						col-md="6" label="Username" />
+						
+					<b:inputSecret id="password" required="true" required-message="O campo Password é obrigatório" value="#{usuarioController.usuario.password}"
+						col-md="6" label="Password" />
+						
+
+					<b:commandButton col-md="2" value="Salvar" look="success"
+						action="#{usuarioController.salvar}" />
+					<b:commandButton  col-md="2" value="Novo"
+						action="#{usuarioController.novo}" />
+				</h:form>
+			</h:panelGroup>
+				<h:panelGroup >
+					<h:form id="formUsuarioLista" style="margin-top:18%">
+						<b:dataTable responsive="true" paginated="false" value="#{usuarioController.listUsuario}" col-sm="12" 
+							var="u"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">							
+								<b:dataTableColumn value="#{u.nome}" label="Nome" />
+								<b:dataTableColumn value="#{u.username}" label="Username" />
+								
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Editar" />
+									</f:facet>
+										<b:commandButton value="Editar" look=""
+									action="#{usuarioController.editar(u)}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Excluir" />
+									</f:facet>
+									<b:commandButton value="Excluir" look="danger"
+										action="#{usuarioController.excluir(u.id)}"
+										onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
+								</h:column>
+						</b:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:body>
+		</b:container>
+	</ui:define>
+</ui:composition>
+

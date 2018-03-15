@@ -1,0 +1,61 @@
+.class{	
+	background-image: url("./background.jpg");
+	background-color: #fafafa;
+}
+
+.divLogin{
+	background-color: rgba(230,230,230,1);
+	width: 40%;
+	padding-top: 1%;
+	padding-bottom: 3%;
+	border-radius:10px;
+}
+
+.divCadastro{
+	background-color: rgba(240,240,240,1);
+	width: 40%;
+	padding:2%;
+	padding-top: 1%;
+	padding-bottom: 3%;
+	border-radius:10px;
+	color: #919DA5;
+	text-align: left;
+}
+
+.saveBtn{
+	width: 100%;
+	height: 78px;
+}
+
+.buttonLogin{	
+	margin-right:25%!important;
+	background-color: #07c664!important;
+	color: #fff!important; 
+}
+
+.buttonJoin{
+	
+	background-color: #07c664!important;
+	color: #fff!important; 
+}
+
+.vlrtotal{
+	color: aqua;
+}
+.navBottom{
+	float:bottom;
+	background-color: rgba(230,230,230,1);
+	min-height:0px !important; 
+	height:7% !important;
+	color: black !important;
+}
+
+@media screen and (max-width: 420px) {
+.divLogin,.divCadastro{
+	
+	width:100%;
+		
+	}
+	
+
+}

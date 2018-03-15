@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html 
+ xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<f:facet name="no-fa"></f:facet>				
+	<title>Controle de veículos</title>
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />			
+	<link href="/resources/css/sb-admin.css" rel="stylesheet" />
+</h:head>
+<h:body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+		id="mainNav">
+		<a class="navbar-brand" href="index.jsf">Cobalchini</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#navbarResponsive"
+			aria-controls="navbarResponsive" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Marcas de veículos">
+					<a class="nav-link" href="marcas.jsf"> <i class="fa fa-fw fa-medium"></i> 
+					<span class="nav-link-text">Marcas de veículos</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Modelos de veículos">
+					<a class="nav-link" href="modelo.jsf"> <i class="fa fa-fw fa-area-chart"></i> 
+					<span class="nav-link-text">Modelos de veículos</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Veiculos">
+					<a class="nav-link" href="veiculos.jsf"> <i	class="fa fa-fw fa-car"></i> 
+					<span class="nav-link-text">Veiculos</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tipos de despesa">
+					<a class="nav-link" href="tipo.jsf"> <i	class="fa fa-fw fa-car"></i> 
+					<span class="nav-link-text">Tipos de despesa</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Despesas">
+					<a class="nav-link" href="despesas.jsf"> <i	class="fa fa-fw fa-usd"></i> 
+					<span class="na3v-link-text">Despesas</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Multas">
+					<a class="nav-link" href="multas.jsf"> <i	class="fa fa-fw fa-warning"></i> 
+					<span class="nav-link-text">Multas</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Abastecimentos">
+					<a class="nav-link" href="abastecimentos.jsf"> <i	class="fa fa-fw fa-cab"></i> 
+					<span class="nav-link-text">Abastecimentos</span></a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pneus">
+					<a class="nav-link" href="pneus.jsf"> <i	class="fa fa-fw fa-circle-o"></i> 
+					<span class="nav-link-text">Pneus</span></a>
+				</li>
+				</ul>
+			<ul class="navbar-nav sidenav-toggler">
+				<li class="nav-item"><a class="nav-link text-center"
+					id="sidenavToggler"> <i class="fa fa-fw fa-angle-left"></i>
+				</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto">				
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"
+					href="#" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <i class="fa fa-fw fa-bell"></i> <span
+						class="d-lg-none">Alerts <span
+							class="badge badge-pill badge-warning">6 New</span>
+					</span> <span class="indicator text-warning d-none d-lg-block"> <i
+							class="fa fa-fw fa-circle"></i>
+					</span>
+				</a>
+					<div class="dropdown-menu" aria-labelledby="alertsDropdown">
+						<h6 class="dropdown-header">New Alerts:</h6>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"> <span class="text-success">
+								<strong> <i class="fa fa-long-arrow-up fa-fw"></i>Status
+									Update
+							</strong>
+						</span> <span class="small float-right text-muted">11:21 AM</span>
+							<div class="dropdown-message small">This is an automated
+								server response message. All systems are online.</div>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"> <span class="text-danger">
+								<strong> <i class="fa fa-long-arrow-down fa-fw"></i>Status
+									Update
+							</strong>
+						</span> <span class="small float-right text-muted">11:21 AM</span>
+							<div class="dropdown-message small">This is an automated
+								server response message. All systems are online.</div>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"> <span class="text-success">
+								<strong> <i class="fa fa-long-arrow-up fa-fw"></i>Status
+									Update
+							</strong>
+						</span> <span class="small float-right text-muted">11:21 AM</span>
+							<div class="dropdown-message small">This is an automated
+								server response message. All systems are online.</div>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item small" href="#">View all alerts</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link">#{USUARIOLogado.nome}
+				</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="modal"
+					data-target="#exampleModal"> <i class="fa fa-fw fa-sign-out"></i>Sair
+				</a></li>				
+			</ul>
+		</div>
+	</nav>
+	
+	<div class="content-wrapper">
+		<div class="container-fluid">
+   		<b:container fluid="true">
+            <ui:insert name="content"/>
+        </b:container>
+		</div>
+		<footer class="sticky-footer">
+			<div class="container">
+				<div class="text-center">
+					<small>Cobalchini © 2017</small>
+				</div>
+			</div>
+		</footer>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fa fa-angle-up"></i>
+		</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Deseja mesmo sair?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Clique em "Sair" logo abaixo se deseja realmente
+						encerrar sua sessão</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancelar</button>
+						<a class="btn btn-primary" href="../login.jsf">Sair</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Bootstrap core JavaScript-->		
+		
+		<script src="/resources/vendor/jquery/jquery.min.js"></script>							
+		<script src="/resources/highfaces/jquery/jquery.js"></script>			
+		<script src="/resources/highfaces/highcharts/highcharts.js"></script>
+		<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>			
+		<!-- Custom scripts for all pages-->
+		<script src="/resources/js/sb-admin.min.js"></script>
+		<!-- Custom scripts for this page-->		
+	 	
+	</div>
+</h:body>
+
+</html>

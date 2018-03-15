@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">	
+	<ui:define name="content">
+		<b:container fluid="true">
+		<h:body>
+		<h:panelGroup style="align:center">
+			
+			<b:messages></b:messages>
+				<h:form id="formModelo" >
+
+					<b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao" label="Descrição" col-md="12"
+						value="#{modeloController.modelo.descricao}" />
+
+					<b:inputText id="ano"  required="true" required-message="O campo Ano é obrigatório" value="#{modeloController.modelo.ano}"
+						col-md="2" label="Ano" />
+
+					<b:selectOneMenu required="true" required-message="O campo Marca é obrigatório" id="marca" label="Marca" col-md="10"
+						value="#{modeloController.modelo.marca}"
+						converter="#{marcasConverter}">
+						<f:selectItems var="marca" value="#{modeloController.listMarcas}"
+							itemLabel="#{marca.descricao}" itemValue="#{marca.id}" />
+					</b:selectOneMenu>
+
+					<b:commandButton  col-md="2" value="Novo" action="#{modeloController.novo}" />
+					<b:commandButton col-md="2" value="Salvar" look="success" action="#{modeloController.salvar}" />
+				</h:form>
+			</h:panelGroup>
+				<h:panelGroup >
+					<h:form id="formModeloLista">
+						<b:dataTable responsive="true" paginated="false" value="#{modeloController.modelos}" col-sm="12" 
+							var="c" style="margin-top:7%"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+								<b:dataTableColumn value="#{c.descricao}" label="Descrição" />
+								<b:dataTableColumn value="#{c.ano}" label="Ano" />
+								<b:dataTableColumn value="#{c.marca.descricao}" label="Marca" />
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Editar" />
+								</f:facet>
+								<b:commandButton value="Editar" look=""
+									action="#{modeloController.editar(e)}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<b:commandButton value="Excluir" look="danger"
+									action="#{modeloController.excluir(e.id)}"
+									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
+							</h:column>
+						</b:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:body>
+		</b:container>
+	</ui:define>
+</ui:composition>
+

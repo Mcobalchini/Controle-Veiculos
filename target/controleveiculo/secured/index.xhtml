@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:hf="http://highfaces.org">
+	
+	<h:head>
+		
+	</h:head>
+	<ui:define name="content">		
+		<h:body>
+			<h:form>
+			<h2 id="test">Total R$ = #{despesasController.getValorTotal(1)}</h2>
+			<b:selectOneMenu id="veiculo" label="Veiculo"  col-md="4"
+				value="#{despesasController.despesas.veiculo}" onchange="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)"
+				converter="#{veiculoConverter}">
+					<f:selectItems id="vcars" var="veiculo" value="#{despesasController.listVeiculos}"
+					  itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}"/>		  													
+			</b:selectOneMenu>						
+	
+			</h:form>
+			<div style="float:left">
+								
+			<hf:chart type="pie" xaxisLabel="Tipo de Despesa" yaxisLabel="Valores" credits="Cobalchini" title="Despesas" >
+				 <hf:chartSerie name="Despesa" value="#{despesasController.listDespesasTipo}" var="despesa" tickLabel="#{despesa.descricao}" point="#{despesa.valor}"  
+				  dataLabel="&lt;b>{point.name}&lt;/b>: {point.percentage:.1f} % &lt;i>(R$ {point.y})&lt;/i>"/>
+			</hf:chart>
+			</div>
+		</h:body>
+	</ui:define>
+</ui:composition>
