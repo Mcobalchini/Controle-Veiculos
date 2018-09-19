@@ -1,17 +1,10 @@
 package br.edu.utfpr.pb.controleveiculo.controller;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
+import br.edu.utfpr.pb.controleveiculo.model.Abastecimentos;
 import br.edu.utfpr.pb.controleveiculo.model.Modelo;
 import br.edu.utfpr.pb.controleveiculo.model.Usuario;
 import br.edu.utfpr.pb.controleveiculo.model.Veiculo;
+import br.edu.utfpr.pb.controleveiculo.repository.AbastecimentosRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.ModeloRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.UsuarioRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.VeiculoRepository;
@@ -19,6 +12,13 @@ import br.edu.utfpr.pb.controleveiculo.session.SessionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.PostConstruct;
+import java.util.Date;
+import java.util.List;
 
 @Controller("veiculoController")
 @Scope("view")
@@ -36,6 +36,9 @@ public class VeiculoController {
 	private List<Usuario> listUsuario;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private AbastecimentosRepository abastecimentosRepository;
 	@Getter @Setter
 	private List<Veiculo> veiculos;
 	@Getter @Setter
@@ -78,7 +81,7 @@ public class VeiculoController {
 		veiculoRepository.delete(id);
 		popularLista();
 	}
-	
+
 	public String calibrarPneus(Long id){
 		veiculo = veiculoRepository.findOne(id);
 		veiculo.setUltimaCalibragem(new Date()); //Seta a data de hoje como ultmia calibragem
@@ -89,6 +92,13 @@ public class VeiculoController {
 	public void trocarPneus(Long id){
 		veiculo = veiculoRepository.findOne(id);	
 		veiculo.setKmPneus(0);
+		salvar();
+	}
+
+	public void recalcularKmLitro(Long id){
+		veiculo = veiculoRepository.findOne(id);
+	    Abastecimentos abastecimento = abastecimentosRepository.findFirst1ByVeiculoIdOrderByIdDesc(veiculo.getId());
+		veiculo.setLitragem((veiculo.getHodometroAtual() - veiculo.getHodometroAnterior()) / abastecimento.getLitros());
 		salvar();
 	}
 }

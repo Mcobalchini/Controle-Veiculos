@@ -1,18 +1,6 @@
 package br.edu.utfpr.pb.controleveiculo.controller;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
-import br.edu.utfpr.pb.controleveiculo.model.Despesas;
-import br.edu.utfpr.pb.controleveiculo.model.GraficoDesp;
-import br.edu.utfpr.pb.controleveiculo.model.Tipo;
-import br.edu.utfpr.pb.controleveiculo.model.Usuario;
-import br.edu.utfpr.pb.controleveiculo.model.Veiculo;
+import br.edu.utfpr.pb.controleveiculo.model.*;
 import br.edu.utfpr.pb.controleveiculo.repository.DespesasRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.TipoRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.VeiculoRepository;
@@ -20,6 +8,12 @@ import br.edu.utfpr.pb.controleveiculo.session.SessionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Controller("despesasController")
 @Scope("view")
@@ -34,7 +28,7 @@ public class DespesasController {
 	@Getter @Setter
 	private List<Despesas> listDespesas;	
 	private List<GraficoDesp> listDespesasTipo;
-	@Getter @Setter
+	@Setter
 	private List<Despesas> listDespesasUser;
 	@Autowired
 	private DespesasRepository despesasRepository;

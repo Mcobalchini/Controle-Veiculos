@@ -1,14 +1,9 @@
 package br.edu.utfpr.pb.controleveiculo;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.Filter;
-
+import br.edu.utfpr.pb.controleveiculo.customScope.ViewScope;
+import br.edu.utfpr.pb.controleveiculo.filter.LoginFilter;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,10 +11,11 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-import br.edu.utfpr.pb.controleveiculo.customScope.ViewScope;
-import br.edu.utfpr.pb.controleveiculo.filter.LoginFilter;
+import javax.faces.webapp.FacesServlet;
+import javax.servlet.Filter;
+import java.util.HashMap;
+import java.util.Map;
 
-@EnableAutoConfiguration
 @SpringBootApplication
 public class Main extends SpringBootServletInitializer{
 

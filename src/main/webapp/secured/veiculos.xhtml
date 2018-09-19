@@ -58,15 +58,18 @@
 							<p></p>
 							<b:commandButton value="Calibrar" look=""	action="#{veiculoController.calibrarPneus(e.id)}" />
 						</h:column>
-																										
+
 
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="Ações" />
 								</f:facet>
+								<b:commandButton value="Recalcular km/l" look=""
+									action="#{veiculoController.recalcularKmLitro(e.id)}" />
+									<p></p>
 								<b:commandButton value="Editar" look=""
 									action="#{veiculoController.editar(e)}" />
-									<p></p>									
+									<p></p>
 								<b:commandButton value="Excluir" look="danger"
 									action="#{veiculoController.excluir(e.id)}"
 									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />

@@ -1,28 +1,21 @@
 package br.edu.utfpr.pb.controleveiculo.controller;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import br.edu.utfpr.pb.controleveiculo.model.Abastecimentos;
 import br.edu.utfpr.pb.controleveiculo.model.Despesas;
-import br.edu.utfpr.pb.controleveiculo.model.Tipo;
 import br.edu.utfpr.pb.controleveiculo.model.Usuario;
 import br.edu.utfpr.pb.controleveiculo.model.Veiculo;
-import br.edu.utfpr.pb.controleveiculo.repository.AbastecimentosRepository	;
-import br.edu.utfpr.pb.controleveiculo.repository.DespesasRepository;
-import br.edu.utfpr.pb.controleveiculo.repository.TipoRepository;
-import br.edu.utfpr.pb.controleveiculo.repository.UsuarioRepository;
-import br.edu.utfpr.pb.controleveiculo.repository.VeiculoRepository;
+import br.edu.utfpr.pb.controleveiculo.repository.*;
 import br.edu.utfpr.pb.controleveiculo.session.SessionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.PostConstruct;
+import java.util.Date;
+import java.util.List;
 
 @Controller("abastecimentosController")
 @Scope("view")
@@ -68,20 +61,23 @@ public class AbastecimentosController {
 	}
 
 	public void salvar() {		
-		Tipo tipo = new Tipo();		
 		try{
-			despesa = despesasRepository.findByAbastecimento((long)abastecimentos.getId());
+			despesa = despesasRepository.findByAbastecimento((long) abastecimentos.getId());
 		}
 		catch(NullPointerException e){
 			despesa = new Despesas();
 		}
-		abastecimentos.setUsuario((Usuario) SessionUtil.getParam("USUARIOLogado")); 
+		abastecimentos.setUsuario((Usuario) SessionUtil.getParam("USUARIOLogado"));
+		if(veiculo.getHodometroAtual() != 0){
+            veiculo.setHodometroAnterior(veiculo.getHodometroAtual());
+        }
 
+		veiculo.setHodometroAtual(abastecimentos.getHodometroInformado());
 		veiculosRepository.save(veiculo);
 		abastecimentosRepository.save(abastecimentos);
-		despesa.setDescricao("Despesa ref. abastecimento: "+abastecimentos.getPosto());
+		despesa.setDescricao("Despesa ref. abastecimento: " + abastecimentos.getPosto());
 		despesa.setStatus(true);
-		despesa.setTipo(tipo = tipoRepository.findOne((long) 3));		
+		despesa.setTipo(tipoRepository.findOne(3L));
 		despesa.setValor(abastecimentos.getValorPago());
 		despesa.setVeiculo(abastecimentos.getVeiculo());
 		despesa.setUsuario(abastecimentos.getUsuario());

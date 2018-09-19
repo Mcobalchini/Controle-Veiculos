@@ -14,21 +14,23 @@
 							value="#{abastecimentosController.abastecimentos.posto}" label="Posto de Combustível" />
 						<b:dateTimePicker use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" icon-awesome="fa-calendar-o" mode="toggle-icon" value="#{abastecimentosController.abastecimentos.data}" required="true"  label="Data:" col-sm="4" />
 						
-						<b:selectOneMenu onchange="ajax:abastecimentosController.calcular()" update="litros kmRodagem" required="true" required-message="O campo Veiculo é obrigatório" id="veiculo" label="Veiculo" col-md="6"
+						<b:selectOneMenu onchange="ajax:abastecimentosController.calcular()" update="litros kmRodagem" required="true" required-message="O campo Veiculo é obrigatório" id="veiculo" label="Veiculo" col-md="4"
 							value="#{abastecimentosController.abastecimentos.veiculo}"
 							converter="#{veiculoConverter}">
 							<f:selectItems var="veiculo" value="#{abastecimentosController.listVeiculos}"
 								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
 						</b:selectOneMenu>
 						
-						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor por Litro" id="valorLitro" col-md="3"
-							value="#{abastecimentosController.abastecimentos.valorLitro}" label="Valor Lt. de Combustível R$"  />
-							
-				
+						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor por Litro é obrigatório" id="valorLitro" col-md="2"
+							value="#{abastecimentosController.abastecimentos.valorLitro}" label="Valor Lt. R$"  />
+
 						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor Pago é obrigatório" id="valorPago" col-md="3"
 							value="#{abastecimentosController.abastecimentos.valorPago}" update="litros kmRodagem" onkeypress="ajax:abastecimentosController.calcular()"  onchange="ajax:abastecimentosController.calcular()" label="Valor Pago R$" >
-							</b:inputText>					
-							
+							</b:inputText>
+
+						<b:inputText mask="9{1,9}" required="true" required-message="O campo Hodometro Atual do Veiculo é obrigatório" id="hodometroInformado" col-md="3"
+							value="#{abastecimentosController.abastecimentos.hodometroInformado}" label="Hodometro Atual do Veiculo"  />
+
 						<b:inputText disabled="true" col-md="6" name="litros" id="litros" value="#{abastecimentosController.abastecimentos.litros}"  mask="9{1,4}.9{2,2}" label="Litragem total"/>
 						<b:inputText disabled="true" col-md="6" id="kmRodagem" value="#{abastecimentosController.abastecimentos.veiculo.kmapercorrer}"  mask="9{1,4}.9{2,2}" label="Kilometragem Restante"/>
 																        

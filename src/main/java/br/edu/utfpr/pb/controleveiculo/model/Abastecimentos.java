@@ -1,19 +1,10 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import lombok.Data;
 
 @Entity
 @Data
@@ -38,6 +29,9 @@ public class Abastecimentos implements Serializable{
 		
 	@Column(length = 50, nullable = false)
 	private Double litros;
+
+	@Column(length = 10)
+	private Double hodometroInformado;
 	
 	@Temporal(TemporalType.DATE)
 	private Date data;
