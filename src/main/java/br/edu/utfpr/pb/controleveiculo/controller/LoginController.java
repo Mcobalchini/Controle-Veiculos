@@ -1,18 +1,17 @@
 package br.edu.utfpr.pb.controleveiculo.controller;
 
-import javax.annotation.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import br.edu.utfpr.pb.controleveiculo.model.Usuario;
 import br.edu.utfpr.pb.controleveiculo.repository.UsuarioRepository;
 import br.edu.utfpr.pb.controleveiculo.session.SessionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 
 @Controller("loginController")
 @ManagedBean
@@ -49,6 +48,8 @@ public class LoginController {
 				// ADD USUARIO NA SESSION								
 				SessionUtil.setParam("USUARIOLogado", usuario);				
 				FacesMessages.info("Login realizado com sucesso!");
+				//Invalida o usuário para que não fique atrelado ao controller
+				invalidaUsuario();
 				return "/secured/index.jsf?faces-redirect=true";
 			}
 
@@ -56,7 +57,13 @@ public class LoginController {
 
 	}
 
-	public boolean isLoggedIn() { 
+    private void invalidaUsuario() {
+	    usuario = null;
+	    password = null;
+	    username = null;
+    }
+
+    public boolean isLoggedIn() {
 		return loggedIn;
 	}
 

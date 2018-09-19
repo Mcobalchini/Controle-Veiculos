@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:composition template="/applayout/loginTemplate.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:define name="titulo">Pagina Login</ui:define>
        <h:outputStylesheet library="css" name="style.css"/>   
@@ -21,9 +20,9 @@
 			<h:form id="frm" prependId="false" >				
 				<h:panelGrid columns="2" rowClasses="3">
 					
-					<b:inputText id="usuario" name="usuario" required-message="O campo Nome de usuário é obrigatório" size="30" required="true" type="text" placeholder="Nome de usuário" value="#{loginController.username}" />
+					<b:inputText id="usuario" name="usuario" required-message="O campo Nome de usuário é obrigatório" size="30" required="true" type="text" placeholder="Nome de usuário" value="#{loginController.username}" autocomplete="off" />
 					<br/>
-					<b:inputSecret required-message="O campo senha é obrigatório" size="30" required="true" placeholder="Senha" value="#{loginController.password}" />
+					<b:inputSecret required-message="O campo senha é obrigatório" size="30" required="true" placeholder="Senha" value="#{loginController.password}" autocomplete="off"/>
 				</h:panelGrid>
 				
 					<h:panelGroup styleClass="panelLogin"> 													
