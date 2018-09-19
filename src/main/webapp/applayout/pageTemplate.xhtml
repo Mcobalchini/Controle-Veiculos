@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet name="css/default/core.css" position="first"
 		library="bsf" />
@@ -135,8 +134,7 @@
 					<div class="modal-footer">
 						<button id="sair" class="btn btn-secondary" type="button"
 							data-dismiss="modal">Cancelar</button>
-						<a id="sair" class="btn btn-primary" type="button"
-							href="../login.jsf">Sair</a>						
+						<h:commandButton value="Sair" id="exit" action="#{loginController.doLogout()}" styleClass="btn btn-primary" />
 					</div>
 				</div>
 			</div>

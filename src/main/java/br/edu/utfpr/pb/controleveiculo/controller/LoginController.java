@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 @Controller("loginController")
 @ManagedBean
@@ -49,7 +52,7 @@ public class LoginController {
 				SessionUtil.setParam("USUARIOLogado", usuario);				
 				FacesMessages.info("Login realizado com sucesso!");
 				//Invalida o usuário para que não fique atrelado ao controller
-				invalidaUsuario();
+				invalidaLogin();
 				return "/secured/index.jsf?faces-redirect=true";
 			}
 
@@ -57,7 +60,7 @@ public class LoginController {
 
 	}
 
-    private void invalidaUsuario() {
+    private void invalidaLogin() {
 	    usuario = null;
 	    password = null;
 	    username = null;
@@ -78,12 +81,14 @@ public class LoginController {
 	}
 	
 
-	public String doLogout() {
-		// Set the paremeter indicating that user is logged in to false
+	public void doLogout() throws IOException {
+		// Set the parameter indicating that user is logged in to false
 		setLoggedIn(false);
-		usuario = null;
-		SessionUtil.setParam("USUARIOLogado", null);		
-		return "../login.jsf";
+		invalidaLogin();
+		SessionUtil.setParam("USUARIOLogado", null);
+        FacesContext fContext = FacesContext.getCurrentInstance();
+        ExternalContext extContext = fContext.getExternalContext();
+        extContext.redirect(extContext.getRequestContextPath() + "/login.jsf");
 	}
 
 		
