@@ -3,7 +3,6 @@ package br.edu.utfpr.pb.controleveiculo.controller;
 import br.edu.utfpr.pb.controleveiculo.model.Usuario;
 import br.edu.utfpr.pb.controleveiculo.model.Veiculo;
 import br.edu.utfpr.pb.controleveiculo.repository.UsuarioRepository;
-import br.edu.utfpr.pb.controleveiculo.repository.VeiculoRepository;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
@@ -24,8 +23,6 @@ public class UsuarioController {
     @Getter
     @Setter
     private List<Veiculo> listVeiculo;
-    @Autowired
-    private VeiculoRepository veiculoRepository;
     @Getter
     @Setter
     private List<Usuario> listUsuario;
@@ -40,7 +37,6 @@ public class UsuarioController {
 
     private void popularLista() {
         this.setListUsuario(usuarioRepository.findAll());
-        this.setListVeiculo(veiculoRepository.findAll());
     }
 
     public String salvar() {

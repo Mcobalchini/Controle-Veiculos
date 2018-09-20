@@ -63,7 +63,7 @@ public class IndexController {
 
     public void retornaDias(Veiculo veiculo) {
         DateTime data = new DateTime(veiculo.getUltimaCalibragem()); //Ultima calibrada
-        DateTime hastoCalibrar = new DateTime(data.plusDays(20)); //Calibrar 20 depois da ultima
+        DateTime hastoCalibrar = new DateTime(data.plusDays(15)); //Calibrar 15 depois da ultima
         DateTime hoje = new DateTime(); //hoje man
         Days diasRestantes = Days.daysBetween(hoje, hastoCalibrar);
         if (diasRestantes.getDays() <= 0) {

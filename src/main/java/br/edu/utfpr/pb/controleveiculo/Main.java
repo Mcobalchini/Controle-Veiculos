@@ -5,6 +5,7 @@ import br.edu.utfpr.pb.controleveiculo.filter.LoginFilter;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -16,8 +17,7 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootApplication
-
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class Main extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {

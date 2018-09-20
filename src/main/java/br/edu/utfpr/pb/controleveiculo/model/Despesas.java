@@ -37,11 +37,11 @@ public class Despesas implements Serializable {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "idAbastecimento", nullable = true)
+    @JoinColumn(referencedColumnName = "id", name = "idAbastecimento")
     private Abastecimentos abastecimento;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "idMulta", nullable = true)
+    @JoinColumn(referencedColumnName = "id", name = "idMulta")
     private Multas multa;
 
 

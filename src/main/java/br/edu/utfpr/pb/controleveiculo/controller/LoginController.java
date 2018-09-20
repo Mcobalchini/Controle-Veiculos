@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.ManagedBean;
@@ -35,6 +36,8 @@ public class LoginController {
     private Usuario usuario;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    private static final BCryptPasswordEncoder bCrypt =
+            new BCryptPasswordEncoder(10);
 
 
     public String autentica() {
@@ -42,17 +45,22 @@ public class LoginController {
             FacesMessages.error("Usuário ou senha incorretos");
             return "";
         } else {
-            usuario = usuarioRepository.findByUsernameIgnoreCase(username);
-            if (!usuario.getPassword().equals(password)) {
-                FacesMessages.error("Usuário ou senha incorretos");
+            if(password != null) {
+                usuario = usuarioRepository.findByUsernameIgnoreCase(username);
+                if (!bCrypt.matches(password, usuario.getPassword())) {
+                    FacesMessages.error("Usuário ou senha incorretos");
+                    return "";
+                } else {
+                    // ADD USUARIO NA SESSION
+                    SessionUtil.setParam("USUARIOLogado", usuario);
+                    FacesMessages.info("Login realizado com sucesso!");
+                    //Invalida o usuário para que não fique atrelado ao controller
+                    invalidaLogin();
+                    return "/secured/index.jsf?faces-redirect=true";
+                }
+            }else{
+                FacesMessages.error("Preencha a senha novamente");
                 return "";
-            } else {
-                // ADD USUARIO NA SESSION
-                SessionUtil.setParam("USUARIOLogado", usuario);
-                FacesMessages.info("Login realizado com sucesso!");
-                //Invalida o usuário para que não fique atrelado ao controller
-                invalidaLogin();
-                return "/secured/index.jsf?faces-redirect=true";
             }
 
         }

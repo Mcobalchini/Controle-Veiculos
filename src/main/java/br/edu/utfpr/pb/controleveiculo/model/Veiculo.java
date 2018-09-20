@@ -41,7 +41,7 @@ public class Veiculo implements Serializable {
     private double hodometroAnterior;
 
     @Temporal(TemporalType.DATE)
-    @Column(length = 12, nullable = true)
+    @Column(length = 12)
     private Date ultimaCalibragem;
 
     @ManyToOne
