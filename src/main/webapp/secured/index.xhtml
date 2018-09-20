@@ -15,7 +15,7 @@
 				value="#{despesasController.despesas.veiculo}" onclick="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)" onchange="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)" update="graficoDespesas vlrTotal parentBlock parentBlock2"
 				converter="#{veiculoConverter}" >
 				<f:selectItems id="vcars" var="veiculo" value="#{despesasController.listVeiculos}"
-					  itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}"/>		  													
+					  itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
 			</b:selectOneMenu>
 			<h:panelGroup id="parentBlock2">										
 				<h:outputText rendered="#{despesasController.despesas.veiculo.id != null}" styleClass="col-md-12" id="vlrTotal" style="font-size:25px" value="Valor Total das despesas R$:#{despesasController.getValorTotal(despesasController.despesas.veiculo.id)}"><f:convertNumber pattern="#0.00" /></h:outputText>			

@@ -19,13 +19,13 @@
 							value="#{multasController.multas.usuario}"
 							converter="#{usuarioConverter}">
 							<f:selectItems var="usuario" value="#{multasController.listUsuarios}"
-								itemLabel="#{usuario.nome}" itemValue="#{usuario.id}" />
+								itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
 						</b:selectOneMenu>
 						<b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo" label="Veículo" col-md="4"
 							value="#{multasController.multas.veiculo}"
 							converter="#{veiculoConverter}">
 							<f:selectItems var="veiculo" value="#{multasController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
+								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
 						</b:selectOneMenu>
 				        <b:dateTimePicker icon-awesome="fa-calendar-o" use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" mode="toggle-icon" showWeek="true" value="#{multasController.multas.dataMulta}" required="true"  label="Data da Multa:" col-sm="3" />				        
 				        

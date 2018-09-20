@@ -23,7 +23,7 @@
 						value="#{modeloController.modelo.marca}"
 						converter="#{marcasConverter}">
 						<f:selectItems var="marca" value="#{modeloController.listMarcas}"
-							itemLabel="#{marca.descricao}" itemValue="#{marca.id}" />
+							itemLabel="#{marca.descricao}" itemValue="#{marca}" />
 					</b:selectOneMenu>
 
 					<b:commandButton  col-md="2" value="Novo" action="#{modeloController.novo}" />
@@ -44,7 +44,7 @@
 									<h:outputText value="Editar" />
 								</f:facet>
 								<b:commandButton value="Editar" look=""
-									action="#{modeloController.editar(e)}" />
+									action="#{modeloController.editar(c)}" />
 							</h:column>
 
 							<h:column>
@@ -52,7 +52,7 @@
 									<h:outputText value="Excluir" />
 								</f:facet>
 								<b:commandButton value="Excluir" look="danger"
-									action="#{modeloController.excluir(e.id)}"
+									action="#{modeloController.excluir(c.id)}"
 									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
 							</h:column>
 						</b:dataTable>

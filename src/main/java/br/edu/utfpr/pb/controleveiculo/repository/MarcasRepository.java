@@ -1,10 +1,9 @@
 package br.edu.utfpr.pb.controleveiculo.repository;
 
+import br.edu.utfpr.pb.controleveiculo.model.Marcas;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.edu.utfpr.pb.controleveiculo.model.Marcas;
-
-public interface MarcasRepository 
-			extends JpaRepository<Marcas, Long>{
+public interface MarcasRepository
+        extends JpaRepository<Marcas, Long> {
 
 }

@@ -13,12 +13,12 @@
 						<b:inputText required="true" required-message="O campo Posto é obrigatório" id="posto" col-md="8"
 							value="#{abastecimentosController.abastecimentos.posto}" label="Posto de Combustível" />
 						<b:dateTimePicker use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" icon-awesome="fa-calendar-o" mode="toggle-icon" value="#{abastecimentosController.abastecimentos.data}" required="true"  label="Data:" col-sm="4" />
-						
+
 						<b:selectOneMenu onchange="ajax:abastecimentosController.calcular()" update="litros kmRodagem" required="true" required-message="O campo Veiculo é obrigatório" id="veiculo" label="Veiculo" col-md="4"
 							value="#{abastecimentosController.abastecimentos.veiculo}"
 							converter="#{veiculoConverter}">
 							<f:selectItems var="veiculo" value="#{abastecimentosController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
+								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
 						</b:selectOneMenu>
 						
 						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor por Litro é obrigatório" id="valorLitro" col-md="2"

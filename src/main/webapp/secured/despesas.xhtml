@@ -21,7 +21,7 @@
 							value="#{despesasController.despesas.tipo}"
 							converter="#{tipoConverter}">
 							<f:selectItems var="tipo" value="#{despesasController.listTipos}"
-								itemLabel="#{tipo.descricao}" itemValue="#{tipo.id}" />
+								itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
 						</b:selectOneMenu>
 												 
 						
@@ -34,7 +34,7 @@
 							value="#{despesasController.despesas.veiculo}"
 							converter="#{veiculoConverter}">
 							<f:selectItems var="veiculo" value="#{despesasController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
+								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
 						</b:selectOneMenu>
 						
 						<b:commandButton col-md="2" value="Novo" action="#{despesasController.novo}" />

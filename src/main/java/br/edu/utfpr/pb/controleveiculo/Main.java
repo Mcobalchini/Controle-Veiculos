@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
+
 public class Main extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {

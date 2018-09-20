@@ -22,13 +22,13 @@
 							value="#{agendamentosController.agendamentos.despesa}"
 							converter="#{despesasConverter}">
 							<f:selectItems var="despesa" value="#{agendamentosController.listDespesas}"
-								itemLabel="#{despesa.descricao}" itemValue="#{despesa.id}" />
+								itemLabel="#{despesa.descricao}" itemValue="#{despesa}" />
 						</b:selectOneMenu>
 						<b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo" label="Veículo" col-md="5"
 							value="#{agendamentosController.agendamentos.veiculo}"
 							converter="#{veiculoConverter}">
 							<f:selectItems var="veiculo" value="#{agendamentosController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo.id}" />
+								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
 						</b:selectOneMenu>
 				        <b:dateTimePicker format="DD/MM/YYYY" required-message="O campo Data é obrigatório" mode="toggle-icon" showWeek="true" value="#{agendamentosController.agendamentos.data}" required="true"  label="Data:" col-sm="2" />
 				        
