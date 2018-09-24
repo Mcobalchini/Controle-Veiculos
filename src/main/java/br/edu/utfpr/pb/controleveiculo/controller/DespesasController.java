@@ -5,6 +5,7 @@ import br.edu.utfpr.pb.controleveiculo.repository.DespesasRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.TipoRepository;
 import br.edu.utfpr.pb.controleveiculo.repository.VeiculoRepository;
 import br.edu.utfpr.pb.controleveiculo.session.SessionUtil;
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Getter;
 import lombok.Setter;
 import net.bootsfaces.utils.FacesMessages;
@@ -101,7 +102,7 @@ public class DespesasController {
     public Double getValorTotal(Long id) {
         if (id != null) {
             veiculo = veiculosRepository.findOne(id);
-            return despesasRepository.findValorTotal(veiculo.getId());
+            return FormatUtils.formatDouble(despesasRepository.findValorTotal(veiculo.getId()));
         } else {
             return (double) 0;
         }
