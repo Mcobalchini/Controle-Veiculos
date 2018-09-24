@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -51,4 +52,20 @@ public class Veiculo implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "idUsuario")
     private Usuario usuario;
+
+    public Double getKmapercorrer() {
+        return FormatUtils.formatDouble(this.kmapercorrer);
+    }
+
+    public Double getKmpercorrido() {
+        return FormatUtils.formatDouble(this.kmpercorrido);
+    }
+
+    public Double getKmPneus() {
+        return FormatUtils.formatDouble(this.kmPneus);
+    }
+
+    public Date getUltimaCalibragem() {
+        return FormatUtils.formatDate(ultimaCalibragem);
+    }
 }

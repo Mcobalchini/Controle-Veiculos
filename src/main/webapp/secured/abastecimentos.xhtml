@@ -44,14 +44,15 @@
 				<h:panelGroup >
 					<b:form id="formAbastecimentosLista"
 						horizontal="true">
-						<b:dataTable responsive="true" paginated="true" id="grid" col-sm="12"
-							value="#{abastecimentosController.listAbastecimentos}" var="c"
-							style="margin-top:7%"
-							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                        <b:dataTable responsive="true" paginated="true" id="grid"
+                                     value="#{abastecimentosController.listAbastecimentos}" var="c"
+                                     style="margin-top:17%"
+                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 							<b:dataTableColumn value="#{c.posto}" label="Posto de Combustivel" />
-							<b:dataTableColumn  value="#{c.valorLitro}" label="Lt. da Gasolina" />
+                            <b:dataTableColumn value="#{c.valorLitro}" label="Lt. da Gasolina"/>
 							<b:dataTableColumn value="#{c.valorPago}" label="Valor pago" />
-							<b:dataTableColumn value="#{c.litros}" label="Litragem total" />							
+                            <b:dataTableColumn value="#{c.litros}" label="Litragem total"/>
+                            <b:dataTableColumn value="#{c.hodometroInformado}" label="Hodometro"/>
 							<b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo" />
 							<b:dataTableColumn value="#{c.usuario.nome}" label="Condutor" />
 							<b:dataTableColumn value="#{c.data}" label="Data abastecimento"/>

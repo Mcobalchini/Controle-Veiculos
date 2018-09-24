@@ -1,6 +1,8 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +29,7 @@ public class Abastecimentos implements Serializable {
     @Column(length = 50, nullable = false)
     private Double valorPago;
 
+    @Getter
     @Column(length = 50, nullable = false)
     private Double litros;
 
@@ -44,5 +47,17 @@ public class Abastecimentos implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "idUsuario")
     private Usuario usuario;
 
+
+    public Double getLitros() {
+        return FormatUtils.formatDouble(this.litros);
+    }
+
+    public double getValorLitro() {
+        return FormatUtils.formatDouble(valorLitro);
+    }
+
+    public Date getData() {
+        return FormatUtils.formatDate(data);
+    }
 
 }

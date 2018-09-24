@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Data;
 
 @Data
@@ -16,4 +17,11 @@ public class GraficoDesp {
         this.vlrTotal = vlrTotal;
     }
 
+    public double getVlrTotal() {
+        return FormatUtils.formatDouble(vlrTotal);
+    }
+
+    public double getValor() {
+        return FormatUtils.formatDouble(valor);
+    }
 }

@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -44,5 +45,7 @@ public class Despesas implements Serializable {
     @JoinColumn(referencedColumnName = "id", name = "idMulta")
     private Multas multa;
 
-
+    public double getValor() {
+        return FormatUtils.formatDouble(valor);
+    }
 }

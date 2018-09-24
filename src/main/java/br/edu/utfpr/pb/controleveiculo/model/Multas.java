@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.controleveiculo.model;
 
+import br.edu.utfpr.pb.controleveiculo.util.FormatUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -44,10 +45,15 @@ public class Multas implements Serializable {
     @Column(length = 8, nullable = false)
     private double valor;
 
-    /*
-     * Condutor e veiculo recebimento de multa
-     * quantos pontos serão  descontados e data da multa
-     * identificação de tipo, condutor
-     * */
+    public Date getDataVencimento() {
+        return FormatUtils.formatDate(dataVencimento);
+    }
 
+    public Date getDataMulta() {
+        return FormatUtils.formatDate(dataMulta);
+    }
+
+    public double getValor() {
+        return FormatUtils.formatDouble(valor);
+    }
 }
