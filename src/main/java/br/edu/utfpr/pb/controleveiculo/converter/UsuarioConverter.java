@@ -28,7 +28,7 @@ public class UsuarioConverter
     @Override
     public String getAsString(FacesContext context, UIComponent component,
                               Object object) {
-        return ((Usuario) object).getNome().toString();
+        return ((Usuario) object).getId().toString();
     }
 
 }
