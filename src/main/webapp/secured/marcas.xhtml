@@ -10,7 +10,7 @@
     <ui:define name="content">
         <body>
         <h:panelGroup>
-            <b:form id="formMarcas">
+            <b:form styleClass="row" id="formMarcas">
                 <b:messages col-md="12" showDetail="true"/>
                 <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
                              col-md="12"
@@ -21,12 +21,10 @@
             </b:form>
 
         </h:panelGroup>
-        <h:panelGroup style="width:50%">
-            <b:form id="formMarcasLista" style="overflow-x: auto"
-                    horizontal="true">
-                <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
-                             value="#{marcasController.listMarcas}" var="c"
-                             style="margin-top:7%"
+        <h:panelGroup>
+            <h:form styleClass="row" id="formMarcasLista" style="overflow-x: auto">
+                <b:dataTable value="#{marcasController.listMarcas}" var="c"
+                             style="margin-top:7%" colMd="12" responsive="true"
                              customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                     <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
                     <h:column>
@@ -48,7 +46,7 @@
                                          onclick="if(!confirm('Deseja realmente excluir?!')) return false;"/>
                     </h:column>
                 </b:dataTable>
-            </b:form>
+            </h:form>
 
         </h:panelGroup>
         </body>

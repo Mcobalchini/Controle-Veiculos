@@ -5,10 +5,10 @@
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
-        <b:container fluid="false">
+        <b:container fluid="true">
             <h:body>
                 <h:panelGroup>
-                    <h:form col-md="12" id="formAbastecimentos">
+                    <h:form styleClass="row" col-md="12" id="formAbastecimentos">
                         <b:messages col-md="12" showDetail="true"/>
                         <b:inputText required="true" required-message="O campo Posto é obrigatório" id="posto"
                                      col-md="8"
@@ -63,7 +63,7 @@
 
                 </h:panelGroup>
                 <h:panelGroup>
-                    <b:form id="formAbastecimentosLista" style="overflow-x: auto"
+                    <h:form styleClass="row" id="formAbastecimentosLista" style="overflow-x: auto"
                             horizontal="true">
                         <b:dataTable responsive="true" paginated="true" id="grid" col-sm="12"
                                      value="#{abastecimentosController.listAbastecimentos}" var="c"
@@ -89,7 +89,7 @@
                                                  onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
                             </h:column>
                         </b:dataTable>
-                    </b:form>
+                    </h:form>
                 </h:panelGroup>
             </h:body>
         </b:container>

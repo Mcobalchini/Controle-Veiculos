@@ -11,7 +11,7 @@
         <b:container>
             <body>
             <h:panelGroup>
-                <b:form col-md="12" id="formDespesas">
+                <b:form styleClass="row" col-md="12" id="formDespesas">
                     <b:messages col-md="12" showDetail="true"/>
 
                     <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
@@ -49,7 +49,7 @@
 
             </h:panelGroup>
             <h:panelGroup>
-                <b:form id="formDespesasLista" style="overflow-x: auto"
+                <h:form styleClass="row" id="formDespesasLista" style="overflow-x: auto"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{despesasController.listDespesasUser}" var="d"
@@ -76,7 +76,7 @@
                         </h:column>
 
                     </b:dataTable>
-                </b:form>
+                </h:form>
 
             </h:panelGroup>
             </body>

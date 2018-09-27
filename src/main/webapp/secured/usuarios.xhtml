@@ -12,7 +12,7 @@
                 <h:panelGroup style="align:center">
 
                     <b:messages></b:messages>
-                    <h:form id="formUsuario">
+                    <h:form styleClass="row" id="formUsuario">
 
                         <b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome"
                                      label="Nome" col-md="12"
@@ -34,7 +34,7 @@
                     </h:form>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:form id="formUsuarioLista" style="margin-top:18%;overflow-x: auto">
+                    <h:form styleClass="row" id="formUsuarioLista" style="margin-top:18%;overflow-x: auto">
                         <b:dataTable responsive="true" paginated="false" value="#{usuarioController.listUsuario}"
                                      col-sm="12"
                                      var="u"

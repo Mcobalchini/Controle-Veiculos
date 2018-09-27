@@ -5,10 +5,10 @@
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
-        <b:container fluid="false">
+        <b:container fluid="true">
             <h:body>
                 <h:panelGroup>
-                    <h:form col-md="12" id="formVeiculo">
+                    <h:form styleClass="row col-md-12" id="formVeiculo">
                         <b:messages col-md="12" showDetail="true"/>
                         <b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome"
                                      label="Nome do veículo" col-md="12"
@@ -43,9 +43,9 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <h:form id="formVeiculoLista" style="overflow-x: auto">
+                    <h:form styleClass="row" id="formVeiculoLista" style="overflow: auto">
                         <b:dataTable fixedHeader="true" value="#{veiculoController.veiculosUsuario}"
-                                     style="margin-top:7%;" col-sm="12"
+                                     style="margin-top:7%;"
                                      var="e"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                             <b:dataTableColumn value="#{e.nome}" label="Nome"/>
@@ -63,7 +63,7 @@
                                 </f:facet>
                                 <b:commandButton value="Trocar" look=""
                                                  action="#{veiculoController.trocarPneus(e.id)}"/>
-                                <p></p>
+                                <p/>
                                 <b:commandButton value="Calibrar" look=""
                                                  action="#{veiculoController.calibrarPneus(e.id)}"/>
                             </h:column>
@@ -75,10 +75,10 @@
                                 </f:facet>
                                 <b:commandButton value="Recalcular km/l" look=""
                                                  action="#{veiculoController.recalcularKmLitro(e.id)}"/>
-                                <p></p>
+                                <p/>
                                 <b:commandButton value="Editar" look=""
                                                  action="#{veiculoController.editar(e)}"/>
-                                <p></p>
+                                <p/>
                                 <b:commandButton value="Excluir" look="danger"
                                                  action="#{veiculoController.excluir(e.id)}"
                                                  onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>

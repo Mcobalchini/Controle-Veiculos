@@ -11,7 +11,7 @@
         <b:container>
             <body>
             <h:panelGroup>
-                <b:form id="formMultas">
+                <b:form styleClass="row" id="formMultas">
                     <b:messages col-md="12" showDetail="true"/>
                     <b:inputText required="true" required-message="O campo Motivo é obrigatório" id="motivos"
                                  col-md="12"
@@ -66,7 +66,7 @@
 
             </h:panelGroup>
             <h:panelGroup style="width:50%">
-                <b:form id="formMultasLista" style="overflow-x: auto"
+                <h:form styleClass="row" id="formMultasLista" style="overflow-x: auto"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{multasController.listMultas}" var="c"
@@ -97,7 +97,7 @@
                                              onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </b:form>
+                </h:form>
 
             </h:panelGroup>
             </body>

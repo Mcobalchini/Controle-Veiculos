@@ -4,13 +4,12 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:b="http://bootsfaces.net/ui"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
->
+				xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="content">
 		<b:container>
 			<body>
 				<h:panelGroup>
-					<b:form id="formTipo">
+					<b:form styleClass="row" id="formTipo">
 						<b:messages  col-md="12" showDetail="true" />
 						<b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao" col-md="12"
 							value="#{tipoController.tipo.descricao}" label="Descrição" />
@@ -22,8 +21,8 @@
 
 				</h:panelGroup>
 				<h:panelGroup style="width:100%">
-					<b:form id="formTipoLista" style="overflow-x: auto"
-						horizontal="true">
+					<h:form styleClass="row" id="formTipoLista" style="overflow-x: auto"
+							horizontal="true">
 						<b:dataTable responsive="true" paginated="true" id="grid" colLg="12"
 									 value="#{tipoController.listTipo}" var="c"
 									 style="margin-top:7%"
@@ -50,7 +49,7 @@
 									rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
 							</h:column>
 						</b:dataTable>
-					</b:form>
+					</h:form>
 
 				</h:panelGroup>
 			</body>

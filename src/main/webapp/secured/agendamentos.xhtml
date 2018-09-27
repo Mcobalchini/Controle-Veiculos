@@ -13,7 +13,7 @@
         <b:container>
             <body>
             <h:panelGroup>
-                <b:form id="formAgendamentos">
+                <h:form styleClass="row" id="formAgendamentos">
                     <b:messages col-md="12" showDetail="true"/>
                     <b:inputText required="true" required-message="O campo Descriçao é obrigatório" id="descricao"
                                  col-md="12"
@@ -42,11 +42,11 @@
                     <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
                                      action="#{agendamentosController.salvar}"/>
 
-                </b:form>
+                </h:form>
 
             </h:panelGroup>
             <h:panelGroup style="width:50%">
-                <b:form id="formAgendamentosLista" style="overflow-x: auto"
+                <h:form styleClass="row" id="formAgendamentosLista" style="overflow-x: auto"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{agendamentosController.listAgendamentos}" var="c"
@@ -73,7 +73,7 @@
                                              onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </b:form>
+                </h:form>
 
             </h:panelGroup>
             </body>
