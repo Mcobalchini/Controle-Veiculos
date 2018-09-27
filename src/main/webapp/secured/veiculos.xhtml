@@ -1,84 +1,93 @@
 <ui:composition template="/applayout/pageTemplate.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">	
-	<ui:define name="content">
-		<b:container fluid="false">
-			<h:body>		
-				<h:panelGroup>		
-					<h:form col-md="12" id="formVeiculo">
-					<b:messages  col-md="12" showDetail="true" />
-					<b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome" label="Nome do veículo" col-md="12"
-						value="#{veiculoController.veiculo.nome}" />
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <b:container fluid="false">
+            <h:body>
+                <h:panelGroup>
+                    <h:form col-md="12" id="formVeiculo">
+                        <b:messages col-md="12" showDetail="true"/>
+                        <b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome"
+                                     label="Nome do veículo" col-md="12"
+                                     value="#{veiculoController.veiculo.nome}"/>
 
-					<b:inputText mask="A{1,3}-9{3,4}" id="placa"  required="true" required-message="O campo Placa é obrigatório" value="#{veiculoController.veiculo.placa}"
-						col-md="2" label="Placa" />
-						
-					<b:inputText mask="9{1,2}" id="litragem"  required="true" required-message="O campo Litragem é obrigatório" value="#{veiculoController.veiculo.litragem}"
-						col-md="3" label="Quantos Km/Litro o carro faz?" />
-						
-					
-					<b:selectOneMenu required="true" required-message="O campo Modelo é obrigatório" id="modelo" label="Modelo" col-md="7"
-						value="#{veiculoController.veiculo.modelo}"
-						converter="#{modeloConverter}">
-												
-						<f:selectItems var="modelo" value="#{veiculoController.listModelo}"
-							itemLabel="#{modelo.descricao}" itemValue="#{modelo}" />
-					</b:selectOneMenu>
-					
+                        <b:inputText mask="A{1,3}-9{3,4}" id="placa" required="true"
+                                     required-message="O campo Placa é obrigatório"
+                                     value="#{veiculoController.veiculo.placa}"
+                                     col-md="2" label="Placa"/>
 
-					<b:commandButton  col-md="2" value="Novo"
-						action="#{veiculoController.novo}" />
-					<b:commandButton col-md="2" value="Salvar" look="success"
-						action="#{veiculoController.salvar}" />
-				</h:form>
-			</h:panelGroup>
-			
-				<h:panelGroup >
-					<h:form id="formVeiculoLista">
-						<b:dataTable styleclass="table-responsive" responsive="true" paginated="false" fixedHeader="true" value="#{veiculoController.veiculosUsuario}" style="margin-top:7%;" col-sm="12" 
-							var="e"
-							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-							<b:dataTableColumn value="#{e.nome}" label="Nome" />
-							<b:dataTableColumn value="#{e.placa}" label="Placa" />
-							<b:dataTableColumn value="#{e.modelo.descricao}" label="Modelo" />
-							<b:dataTableColumn value="#{e.litragem}" label="Km/L" />														
-							<b:dataTableColumn  value="#{e.kmpercorrido}" label="Km Percorridos" />							
-							<b:dataTableColumn value="#{e.kmapercorrer}" label="Km a Percorrer" />																					
-							<b:dataTableColumn value="#{e.kmPneus}" label="Km dos Pneus" />																					
-														
-							
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Pneus" />
-							</f:facet>
-							<b:commandButton value="Trocar" look=""	action="#{veiculoController.trocarPneus(e.id)}"  />
-							<p></p>
-							<b:commandButton value="Calibrar" look=""	action="#{veiculoController.calibrarPneus(e.id)}" />
-						</h:column>
+                        <b:inputText mask="9{1,2}" id="litragem" required="true"
+                                     required-message="O campo Litragem é obrigatório"
+                                     value="#{veiculoController.veiculo.litragem}"
+                                     col-md="3" label="Quantos Km/Litro o carro faz?"/>
 
 
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Ações" />
-								</f:facet>
-								<b:commandButton value="Recalcular km/l" look=""
-									action="#{veiculoController.recalcularKmLitro(e.id)}" />
-									<p></p>
-								<b:commandButton value="Editar" look=""
-									action="#{veiculoController.editar(e)}" />
-									<p></p>
-								<b:commandButton value="Excluir" look="danger"
-									action="#{veiculoController.excluir(e.id)}"
-									onclick="if(!confirm('Confirma a exclusão?!')) return false;" />
-							</h:column>
-						</b:dataTable>
-					</h:form>
-				</h:panelGroup>
-			</h:body>
-		</b:container>
-	</ui:define>
+                        <b:selectOneMenu required="true" required-message="O campo Modelo é obrigatório" id="modelo"
+                                         label="Modelo" col-md="7"
+                                         value="#{veiculoController.veiculo.modelo}"
+                                         converter="#{modeloConverter}">
+
+                            <f:selectItems var="modelo" value="#{veiculoController.listModelo}"
+                                           itemLabel="#{modelo.descricao}" itemValue="#{modelo}"/>
+                        </b:selectOneMenu>
+
+
+                        <b:commandButton col-md="2" value="Novo"
+                                         action="#{veiculoController.novo}"/>
+                        <b:commandButton col-md="2" value="Salvar" look="success"
+                                         action="#{veiculoController.salvar}"/>
+                    </h:form>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:form id="formVeiculoLista" style="overflow-x: auto">
+                        <b:dataTable fixedHeader="true" value="#{veiculoController.veiculosUsuario}"
+                                     style="margin-top:7%;" col-sm="12"
+                                     var="e"
+                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                            <b:dataTableColumn value="#{e.nome}" label="Nome"/>
+                            <b:dataTableColumn value="#{e.placa}" label="Placa"/>
+                            <b:dataTableColumn value="#{e.modelo.descricao}" label="Modelo"/>
+                            <b:dataTableColumn value="#{e.litragem}" label="Km/L"/>
+                            <b:dataTableColumn value="#{e.kmpercorrido}" label="Km Percorridos"/>
+                            <b:dataTableColumn value="#{e.kmapercorrer}" label="Km a Percorrer"/>
+                            <b:dataTableColumn value="#{e.kmPneus}" label="Km dos Pneus"/>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pneus"/>
+                                </f:facet>
+                                <b:commandButton value="Trocar" look=""
+                                                 action="#{veiculoController.trocarPneus(e.id)}"/>
+                                <p></p>
+                                <b:commandButton value="Calibrar" look=""
+                                                 action="#{veiculoController.calibrarPneus(e.id)}"/>
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ações"/>
+                                </f:facet>
+                                <b:commandButton value="Recalcular km/l" look=""
+                                                 action="#{veiculoController.recalcularKmLitro(e.id)}"/>
+                                <p></p>
+                                <b:commandButton value="Editar" look=""
+                                                 action="#{veiculoController.editar(e)}"/>
+                                <p></p>
+                                <b:commandButton value="Excluir" look="danger"
+                                                 action="#{veiculoController.excluir(e.id)}"
+                                                 onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
+                            </h:column>
+                        </b:dataTable>
+                    </h:form>
+                </h:panelGroup>
+            </h:body>
+        </b:container>
+    </ui:define>
 </ui:composition>
 

@@ -1,94 +1,108 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/applayout/pageTemplate.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
-		<b:container>
-			<body>
-				<h:panelGroup>
-					<b:form id="formMultas">
-						<b:messages  col-md="12" showDetail="true" />
-						<b:inputText required="true" required-message="O campo Motivo é obrigatório" id="motivos" col-md="12"
-							value="#{multasController.multas.motivo}" label="Motivo da multa" />
-						
-						<b:selectOneMenu required="true" required-message="O campo Usuário é obrigatório" id="usuário" label="Usuário" col-md="5"
-							value="#{multasController.multas.usuario}"
-							converter="#{usuarioConverter}">
-							<f:selectItems var="usuario" value="#{multasController.listUsuarios}"
-								itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
-						</b:selectOneMenu>
-						<b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo" label="Veículo" col-md="4"
-							value="#{multasController.multas.veiculo}"
-							converter="#{veiculoConverter}">
-							<f:selectItems var="veiculo" value="#{multasController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
-						</b:selectOneMenu>
-				        <b:dateTimePicker icon-awesome="fa-calendar-o" use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" mode="toggle-icon" showWeek="true" value="#{multasController.multas.dataMulta}" required="true"  label="Data da Multa:" col-sm="3" />				        
-				        
-				        <b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor da Multa é obrigatório" name="valor" id="valor" col-md="3" value="#{multasController.multas.valor}" label="Valor da Multa"/>
-				        
-						<b:selectOneMenu required="true" required-message="O campo Gravidade é obrigatório" id="gravidade" label="Gravidade" col-md="3"
-							value="#{multasController.multas.gravidade}" onfocus="ajax:multasController.calculaPonto()" onchange="ajax:multasController.calculaPonto()" update="pontos">						
-            				<f:selectItem itemLabel="Leve" itemValue="leve" />
-            				<f:selectItem itemLabel="Média" itemValue="Media" />
-            				<f:selectItem itemLabel="Grave" itemValue="Grave" />
-            				<f:selectItem itemLabel="Gravíssima" itemValue="Gravissima" />
-						</b:selectOneMenu>
-												
-						
-						<b:inputText name="pontos" disabled="true" id="pontos" col-md="3"
-							value="#{multasController.multas.pontos}" label="Pontuação da multa" />
-						<b:dateTimePicker icon-awesome="fa-calendar-o"  use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" mode="toggle-icon" value="#{multasController.multas.dataVencimento}" required="true"  label="Data de Vencimento" col-md="3" />	
-																							        
-						<b:commandButton col-md="2" value="Novo" action="#{multasController.novo}" />
-						<b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-							action="#{multasController.salvar}" />
-						
-					</b:form>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+    <ui:define name="content">
+        <b:container>
+            <body>
+            <h:panelGroup>
+                <b:form id="formMultas">
+                    <b:messages col-md="12" showDetail="true"/>
+                    <b:inputText required="true" required-message="O campo Motivo é obrigatório" id="motivos"
+                                 col-md="12"
+                                 value="#{multasController.multas.motivo}" label="Motivo da multa"/>
 
-				</h:panelGroup>
-				<h:panelGroup style="width:50%">
-					<b:form id="formMultasLista"
-						horizontal="true">
-						<b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
-							value="#{multasController.listMultas}" var="c"
-							style="margin-top:7%"
-							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-							<b:dataTableColumn value="#{c.motivo}" label="Motivo" />
-							<b:dataTableColumn value="#{c.usuario.nome}" label="Condutor" />
-							<b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo" />
-							<b:dataTableColumn value="#{c.dataMulta}" label="Data da Multa" />
-							<b:dataTableColumn value="#{c.dataVencimento}" label="Data de Vencimento" />
-							<b:dataTableColumn value="#{c.gravidade}" label="Gravidade" />
-							<b:dataTableColumn value="#{c.valor}" label="Valor" />
-							<b:dataTableColumn value="#{c.pontos}" label="Pontos" />
-						<h:column>
-								<f:facet name="header">
-									<h:outputText value="Editar" />
-								</f:facet>
-								<b:commandButton value="Editar" look=""
-									action="#{multasController.editar(c)}" />
-							</h:column>
+                    <b:selectOneMenu required="true" required-message="O campo Usuário é obrigatório" id="usuário"
+                                     label="Usuário" col-md="5"
+                                     value="#{multasController.multas.usuario}"
+                                     converter="#{usuarioConverter}">
+                        <f:selectItems var="usuario" value="#{multasController.listUsuarios}"
+                                       itemLabel="#{usuario.nome}" itemValue="#{usuario}"/>
+                    </b:selectOneMenu>
+                    <b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo"
+                                     label="Veículo" col-md="4"
+                                     value="#{multasController.multas.veiculo}"
+                                     converter="#{veiculoConverter}">
+                        <f:selectItems var="veiculo" value="#{multasController.listVeiculos}"
+                                       itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
+                    </b:selectOneMenu>
+                    <b:dateTimePicker icon-awesome="fa-calendar-o" use-current="true" format="DD/MM/YYYY"
+                                      required-message="O campo Data é obrigatório" mode="toggle-icon" showWeek="true"
+                                      value="#{multasController.multas.dataMulta}" required="true" collapse="true"
+                                      label="Data da Multa:" col-sm="3"/>
 
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Excluir" />
-								</f:facet>
-								<b:commandButton value="Excluir" look="danger"
-									action="#{multasController.excluir(c.id)}"
-									onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;" />
-							</h:column>
-						</b:dataTable>
-					</b:form>
+                    <b:inputText mask="9{1,4}.9{2,2}" required="true"
+                                 required-message="O campo Valor da Multa é obrigatório" name="valor" id="valor"
+                                 col-md="3" value="#{multasController.multas.valor}" label="Valor da Multa"/>
 
-				</h:panelGroup>
-			</body>
-		</b:container>
-	</ui:define>
+                    <b:selectOneMenu required="true" required-message="O campo Gravidade é obrigatório" id="gravidade"
+                                     label="Gravidade" col-md="3"
+                                     value="#{multasController.multas.gravidade}"
+                                     onfocus="ajax:multasController.calculaPonto()"
+                                     onchange="ajax:multasController.calculaPonto()" update="pontos">
+                        <f:selectItem itemLabel="Leve" itemValue="leve"/>
+                        <f:selectItem itemLabel="Média" itemValue="Media"/>
+                        <f:selectItem itemLabel="Grave" itemValue="Grave"/>
+                        <f:selectItem itemLabel="Gravíssima" itemValue="Gravissima"/>
+                    </b:selectOneMenu>
+
+
+                    <b:inputText name="pontos" disabled="true" id="pontos" col-md="3"
+                                 value="#{multasController.multas.pontos}" label="Pontuação da multa"/>
+                    <b:dateTimePicker icon-awesome="fa-calendar-o" use-current="true" format="DD/MM/YYYY"
+                                      required-message="O campo Data é obrigatório" mode="toggle-icon"
+                                      value="#{multasController.multas.dataVencimento}" required="true"
+                                      label="Data de Vencimento" col-md="3"/>
+
+                    <b:commandButton col-md="2" value="Novo" action="#{multasController.novo}"/>
+                    <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+                                     action="#{multasController.salvar}"/>
+                </b:form>
+
+            </h:panelGroup>
+            <h:panelGroup style="width:50%">
+                <b:form id="formMultasLista" style="overflow-x: auto"
+                        horizontal="true">
+                    <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
+                                 value="#{multasController.listMultas}" var="c"
+                                 style="margin-top:7%"
+                                 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                        <b:dataTableColumn value="#{c.motivo}" label="Motivo"/>
+                        <b:dataTableColumn value="#{c.usuario.nome}" label="Condutor"/>
+                        <b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo"/>
+                        <b:dataTableColumn value="#{c.dataMulta}" label="Data da Multa"/>
+                        <b:dataTableColumn value="#{c.dataVencimento}" label="Data de Vencimento"/>
+                        <b:dataTableColumn value="#{c.gravidade}" label="Gravidade"/>
+                        <b:dataTableColumn value="#{c.valor}" label="Valor"/>
+                        <b:dataTableColumn value="#{c.pontos}" label="Pontos"/>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <b:commandButton value="Editar" look=""
+                                             action="#{multasController.editar(c)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <b:commandButton value="Excluir" look="danger"
+                                             action="#{multasController.excluir(c.id)}"
+                                             onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
+                        </h:column>
+                    </b:dataTable>
+                </b:form>
+
+            </h:panelGroup>
+            </body>
+        </b:container>
+    </ui:define>
 </ui:composition>
 
 

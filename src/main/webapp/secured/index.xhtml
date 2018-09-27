@@ -1,46 +1,76 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:composition template="/applayout/pageTemplate.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:hf="http://highfaces.org">
-       <h:outputStylesheet library="css" name="style.css"/>   
-	<ui:define name="content">		
-		<h:body>
-			<h:form>			
-			<b:selectOneMenu id="veiculo" label="Veiculo"  col-md="5" 
-				value="#{despesasController.despesas.veiculo}" onclick="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)" onchange="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)" update="graficoDespesas vlrTotal parentBlock parentBlock2"
-				converter="#{veiculoConverter}" >
-				<f:selectItems id="vcars" var="veiculo" value="#{despesasController.listVeiculos}"
-					  itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
-			</b:selectOneMenu>
-			<h:panelGroup id="parentBlock2">
-				<h:outputText rendered="#{despesasController.despesas.veiculo.id != null}" styleClass="col-md-12"
-							  id="vlrTotal" style="font-size:25px"
-							  value="Valor Total R$:#{despesasController.getValorTotal(despesasController.despesas.veiculo.id)}"><f:convertNumber
-						pattern="#0.00"/></h:outputText>
-				<h:outputText rendered="#{despesasController.despesas.veiculo.id != null}" styleClass="col-md-12"
-							  id="kmRodado" style="font-size:25px"
-							  value="Km Rodado: #{despesasController.despesas.veiculo.kmpercorrido}"></h:outputText>
-				<h:outputText rendered="#{despesasController.despesas.veiculo.id != null}" styleClass="col-md-3"
-							  id="lblDataCalibragem" style="font-size:25px" value="Ultima calibragem: "></h:outputText>
-				<h:outputText rendered="#{despesasController.despesas.veiculo.id != null}" styleClass="col-md-9"
-							  id="dataCalibragem" style="font-size:25px"
-							  value="#{despesasController.despesas.veiculo.ultimaCalibragem}"><f:convertDateTime
-						dateStyle="long" pattern="dd/MM/yyyy"/></h:outputText>
-			</h:panelGroup>
-			</h:form>
-			<h:panelGroup  id="parentBlock">	
-			<ui:fragment rendered="#{despesasController.despesas.veiculo.id != null}">					
-				<hf:chart  id="graficoDespesas" name="graficoDespesas" type="pie" xaxisLabel="Tipo de Despesa" yaxisLabel="Valores" credits="Cobalchini" title="Despesas" >
-				 	<hf:chartSerie name="Despesa" value="#{despesasController.listDespesasTipo}" var="despesa" tickLabel="#{despesa.descricao}" point="#{despesa.valor}"  
-				  	dataLabel="&lt;b>{point.name}&lt;/b>: {point.percentage:.1f} % &lt;i>(R$ {point.y})&lt;/i>"/>
-				</hf:chart>
-			</ui:fragment>
-			</h:panelGroup>
-		</h:body>
-	</ui:define>
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:hf="http://highfaces.org">
+    <h:outputStylesheet library="css" name="style.css"/>
+    <ui:define name="content">
+        <h:body>
+            <h:form>
+                <b:selectOneMenu id="veiculo" label="Veiculo" col-md="6"
+                                 value="#{despesasController.despesas.veiculo}"
+                                 onclick="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)"
+                                 onchange="ajax:despesasController.getValorTotal(despesasController.despesas.veiculo.id)"
+                                 update="graficoDespesas vlrTotal parentBlock parentBlock2"
+                                 converter="#{veiculoConverter}">
+                    <f:selectItems id="vcars" var="veiculo" value="#{despesasController.listVeiculos}"
+                                   itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
+                </b:selectOneMenu>
+                <h:outputText value="&#160;" styleClass="col-md-7"/>
+                <h:panelGroup id="parentBlock2">
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="lblVlrTotal" style="font-size:25px;text-align: right"
+                                  value="Valor Total R$:"/>
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="vlrTotal" style="font-size:25px;font-weight: bold"
+                                  value="#{despesasController.getValorTotal(despesasController.despesas.veiculo.id)}"/>
+                    <!--Km percorrido-->
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="lblKmRodado" style="font-size:25px;text-align: right"
+                                  value="Km Rodado:"/>
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="kmRodado" style="font-size:25px;font-weight: bold"
+                                  value="#{despesasController.despesas.veiculo.kmpercorrido}"/>
+                    <!--Ultima calibragem-->
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="lblDataCalibragem" style="font-size:25px;text-align: right"
+                                  value="Calibrado em: "/>
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="dataCalibragem" style="font-size:25px;font-weight: bold"
+                                  value="#{despesasController.despesas.veiculo.ultimaCalibragem}"><f:convertDateTime
+                            dateStyle="long" pattern="dd/MM/yyyy"/></h:outputText>
+                    <!--Ultima abastecida-->
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="lblDataAbastecimento" style="font-size:25px;text-align: right"
+                                  value="Abastecido em: "/>
+                    <h:outputText rendered="#{despesasController.despesas.veiculo.id != null}"
+                                  styleClass="col-md-6 infoVeiculo"
+                                  id="dataAbastecimento" style="font-size:25px;font-weight: bold"
+                                  value="#{veiculoController.pegarUltimoAbastecimento(despesasController.despesas.veiculo.id).data}"><f:convertDateTime
+                            dateStyle="long" pattern="dd/MM/yyyy"/></h:outputText>
+                </h:panelGroup>
+            </h:form>
+            <h:panelGroup id="parentBlock">
+                <ui:fragment rendered="#{despesasController.despesas.veiculo.id != null}">
+                    <hf:chart id="graficoDespesas" name="graficoDespesas" type="pie" xaxisLabel="Tipo de Despesa"
+                              yaxisLabel="Valores" credits="Cobalchini" title="Despesas">
+                        <hf:chartSerie name="Despesa" value="#{despesasController.listDespesasTipo}" var="despesa"
+                                       tickLabel="#{despesa.descricao}" point="#{despesa.valor}"
+                                       dataLabel="&lt;b>{point.name}&lt;/b>: {point.percentage:.1f} % &lt;i>(R$ {point.y})&lt;/i>"/>
+                    </hf:chart>
+                </ui:fragment>
+            </h:panelGroup>
+        </h:body>
+    </ui:define>
 </ui:composition>

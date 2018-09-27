@@ -103,9 +103,13 @@ public class VeiculoController {
 
     public void recalcularKmLitro(Long id) {
         veiculo = veiculoRepository.findOne(id);
-        Abastecimentos abastecimento = abastecimentosRepository.findFirst1ByVeiculoIdOrderByIdDesc(veiculo.getId());
+        Abastecimentos abastecimento = pegarUltimoAbastecimento(veiculo.getId());
         veiculo.setLitragem((veiculo.getHodometroAtual() - veiculo.getHodometroAnterior()) / abastecimento.getLitros());
         salvar();
+    }
+
+    public Abastecimentos pegarUltimoAbastecimento(Long id) {
+        return abastecimentosRepository.findFirst1ByVeiculoIdOrderByIdDesc(id);
     }
 }
 

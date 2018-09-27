@@ -1,79 +1,99 @@
 <ui:composition template="/applayout/pageTemplate.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:define name="content">
-		<b:container  fluid="false">
-			<h:body>
-				<h:panelGroup >
-					<h:form col-md="12" id="formAbastecimentos">
-						<b:messages  col-md="12" showDetail="true" />
-						<b:inputText required="true" required-message="O campo Posto é obrigatório" id="posto" col-md="8"
-							value="#{abastecimentosController.abastecimentos.posto}" label="Posto de Combustível" />
-						<b:dateTimePicker use-current="true" format="DD/MM/YYYY" required-message="O campo Data é obrigatório" icon-awesome="fa-calendar-o" mode="toggle-icon" value="#{abastecimentosController.abastecimentos.data}" required="true"  label="Data:" col-sm="4" />
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <b:container fluid="false">
+            <h:body>
+                <h:panelGroup>
+                    <h:form col-md="12" id="formAbastecimentos">
+                        <b:messages col-md="12" showDetail="true"/>
+                        <b:inputText required="true" required-message="O campo Posto é obrigatório" id="posto"
+                                     col-md="8"
+                                     value="#{abastecimentosController.abastecimentos.posto}"
+                                     label="Posto de Combustível"/>
+                        <b:dateTimePicker use-current="true" format="DD/MM/YYYY"
+                                          required-message="O campo Data é obrigatório" icon-awesome="fa-calendar-o"
+                                          mode="toggle-icon" value="#{abastecimentosController.abastecimentos.data}"
+                                          required="true" label="Data:" col-sm="4"/>
 
-						<b:selectOneMenu onblur="ajax:abastecimentosController.calcular()" onchange="ajax:abastecimentosController.calcular()" update="litros kmRodagem" required="true" required-message="O campo Veiculo é obrigatório" id="veiculo" label="Veiculo" col-md="4"
-							value="#{abastecimentosController.abastecimentos.veiculo}"
-							converter="#{veiculoConverter}">
-							<f:selectItems var="veiculo" value="#{abastecimentosController.listVeiculos}"
-								itemLabel="#{veiculo.nome}" itemValue="#{veiculo}" />
-						</b:selectOneMenu>
-						
-						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor por Litro é obrigatório" id="valorLitro" col-md="2"
-								 onblur="ajax:abastecimentosController.calcular()" value="#{abastecimentosController.abastecimentos.valorLitro}" label="Valor Lt. R$"  />
+                        <b:selectOneMenu onblur="ajax:abastecimentosController.calcular()"
+                                         onchange="ajax:abastecimentosController.calcular()" update="litros kmRodagem"
+                                         required="true" required-message="O campo Veiculo é obrigatório" id="veiculo"
+                                         label="Veiculo" col-md="4"
+                                         value="#{abastecimentosController.abastecimentos.veiculo}"
+                                         converter="#{veiculoConverter}">
+                            <f:selectItems var="veiculo" value="#{abastecimentosController.listVeiculos}"
+                                           itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
+                        </b:selectOneMenu>
 
-						<b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor Pago é obrigatório" id="valorPago" col-md="3"
-							value="#{abastecimentosController.abastecimentos.valorPago}" update="litros kmRodagem" onkeypress="ajax:abastecimentosController.calcular()"  onchange="ajax:abastecimentosController.calcular()" onblur="ajax:abastecimentosController.calcular()" label="Valor Pago R$" >
-							</b:inputText>
+                        <b:inputText mask="9{1,4}.9{2,2}" required="true"
+                                     required-message="O campo Valor por Litro é obrigatório" id="valorLitro" col-md="2"
+                                     onblur="ajax:abastecimentosController.calcular()"
+                                     value="#{abastecimentosController.abastecimentos.valorLitro}"
+                                     label="Valor Lt. R$"/>
 
-						<b:inputText mask="9{1,9}" required="true" required-message="O campo Hodometro Atual do Veiculo é obrigatório" id="hodometroInformado" col-md="3"
-							value="#{abastecimentosController.abastecimentos.hodometroInformado}" label="Hodometro Atual do Veiculo"  />
+                        <b:inputText mask="9{1,4}.9{2,2}" required="true"
+                                     required-message="O campo Valor Pago é obrigatório" id="valorPago" col-md="3"
+                                     value="#{abastecimentosController.abastecimentos.valorPago}"
+                                     update="litros kmRodagem" onkeypress="ajax:abastecimentosController.calcular()"
+                                     onchange="ajax:abastecimentosController.calcular()"
+                                     onblur="ajax:abastecimentosController.calcular()" label="Valor Pago R$">
+                        </b:inputText>
 
-						<b:inputText disabled="true" col-md="6" name="litros" id="litros" value="#{abastecimentosController.abastecimentos.litros}"  mask="9{1,4}.9{2,2}" label="Litragem total"/>
-						<b:inputText disabled="true" col-md="6" id="kmRodagem" value="#{abastecimentosController.abastecimentos.veiculo.kmapercorrer}"  mask="9{1,4}.9{2,2}" label="Kilometragem Restante"/>
-																        
-						
-						<b:commandButton col-md="2" value="Novo" action="#{abastecimentosController.novo}" />
-						<b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-							action="#{abastecimentosController.salvar}" />
-					</h:form>
+                        <b:inputText mask="9{1,9}" required="true"
+                                     required-message="O campo Hodometro Atual do Veiculo é obrigatório"
+                                     id="hodometroInformado" col-md="3"
+                                     value="#{abastecimentosController.abastecimentos.hodometroInformado}"
+                                     label="Hodometro Atual do Veiculo"/>
 
-				</h:panelGroup>
-				<h:panelGroup >
-					<b:form id="formAbastecimentosLista"
-						horizontal="true">
-                        <b:dataTable responsive="true" paginated="true" id="grid"
+                        <b:inputText disabled="true" col-md="6" name="litros" id="litros"
+                                     value="#{abastecimentosController.abastecimentos.litros}" mask="9{1,4}.9{2,2}"
+                                     label="Litragem total"/>
+                        <b:inputText disabled="true" col-md="6" id="kmRodagem"
+                                     value="#{abastecimentosController.abastecimentos.veiculo.kmapercorrer}"
+                                     mask="9{1,4}.9{2,2}" label="Kilometragem Restante"/>
+
+                        <b:commandButton col-md="2" value="Novo" action="#{abastecimentosController.novo}"/>
+                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+                                         action="#{abastecimentosController.salvar}"/>
+                    </h:form>
+
+                </h:panelGroup>
+                <h:panelGroup>
+                    <b:form id="formAbastecimentosLista" style="overflow-x: auto"
+                            horizontal="true">
+                        <b:dataTable responsive="true" paginated="true" id="grid" col-sm="12"
                                      value="#{abastecimentosController.listAbastecimentos}" var="c"
-                                     style="margin-top:17%"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-							<b:dataTableColumn value="#{c.posto}" label="Posto de Combustivel" />
+                            <b:dataTableColumn value="#{c.posto}" label="Posto de Combustivel"/>
                             <b:dataTableColumn value="#{c.valorLitro}" label="Lt. da Gasolina"/>
-							<b:dataTableColumn value="#{c.valorPago}" label="Valor pago" />
+                            <b:dataTableColumn value="#{c.valorPago}" label="Valor pago"/>
                             <b:dataTableColumn value="#{c.litros}" label="Litragem total"/>
                             <b:dataTableColumn value="#{c.hodometroInformado}" label="Hodometro"/>
-							<b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo" />
-							<b:dataTableColumn value="#{c.usuario.nome}" label="Condutor" />
-							<b:dataTableColumn value="#{c.data}" label="Data abastecimento"/>
-							<h:column>
-								<b:commandButton value="Editar" icon="pencil" label="Editar"
-									styleClass="btn btn-default"
-									action="#{abastecimentosController.editar(c)}" />
-							</h:column>
-							<h:column>
-							
-								<b:commandButton value="Excluir" icon="trash" label="Excluir"
-									styleClass="btn btn-danger"
-									action="#{abastecimentosController.excluir(c.id)}"
-									onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;" />
-							</h:column>
-						</b:dataTable>
-					</b:form>
-				</h:panelGroup>
-			</h:body>
-		</b:container>
-	</ui:define>
+                            <b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo"/>
+                            <b:dataTableColumn value="#{c.usuario.nome}" label="Condutor"/>
+                            <b:dataTableColumn value="#{c.data}" label="Data abastecimento"/>
+                            <h:column>
+                                <b:commandButton value="Editar" icon="pencil" label="Editar"
+                                                 styleClass="btn btn-default"
+                                                 action="#{abastecimentosController.editar(c)}"/>
+                            </h:column>
+                            <h:column>
+
+                                <b:commandButton value="Excluir" icon="trash" label="Excluir"
+                                                 styleClass="btn btn-danger"
+                                                 action="#{abastecimentosController.excluir(c.id)}"
+                                                 onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
+                            </h:column>
+                        </b:dataTable>
+                    </b:form>
+                </h:panelGroup>
+            </h:body>
+        </b:container>
+    </ui:define>
 </ui:composition>
 
 
