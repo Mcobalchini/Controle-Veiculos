@@ -50,8 +50,10 @@
                                              onclick="if(!confirm('Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                    <b:commandButton onclick="ajax:marcasController.novo()" col-md="3" value="Fechar"
-                                     update="formMarcas" oncomplete="$('.modalForm').modal('hide')"/>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:marcasController.novo()"
+                                     oncomplete="$('.modalForm').modal('show')"
+                                     update="formMarcas" size="lg"/>
                 </b:form>
             </h:panelGroup>
         </h:body>

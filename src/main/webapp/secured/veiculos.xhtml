@@ -94,8 +94,10 @@
                                              onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                    <b:commandButton onclick="ajax:veiculoController.novo()" col-md="3" value="Fechar"
-                                     update="formVeiculo" oncomplete="$('.modalForm').modal('hide')"/>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:veiculoController.novo()"
+                                     oncomplete="$('.modalForm').modal('show')"
+                                     update="formVeiculo" size="lg"/>
                 </b:form>
             </h:panelGroup>
         </h:body>

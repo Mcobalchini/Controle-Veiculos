@@ -55,8 +55,10 @@
                                              rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
                         </h:column>
                     </b:dataTable>
-                    <b:commandButton onclick="ajax:tipoController.novo()" col-md="3" value="Fechar"
-                                     update="formTipo" oncomplete="$('.modalForm').modal('hide')"/>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:tipoController.novo()"
+                                     oncomplete="$('.modalForm').modal('show')"
+                                     update="formTipo" size="lg"/>
                 </b:form>
             </h:panelGroup>
         </h:body>

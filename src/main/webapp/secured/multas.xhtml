@@ -101,8 +101,10 @@
                                              onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                    <b:commandButton onclick="ajax:multasController.novo()" col-md="3" value="Fechar"
-                                     update="formMultas" oncomplete="$('.modalForm').modal('hide')"/>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:multasController.novo()"
+                                     oncomplete="$('.modalForm').modal('show')"
+                                     update="formMultas" size="lg"/>
                 </b:form>
             </h:panelGroup>
         </h:body>
