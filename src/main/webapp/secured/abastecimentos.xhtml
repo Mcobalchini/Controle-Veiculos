@@ -3,15 +3,14 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
         <h:body>
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
-                     title="Adicionar Abastecimento" styleClass="modal"
-                     id="modalForm">
+            <b:modal backdrop="false" closable="false" size="modal-lg"
+                     title="Adicionar Abastecimento" styleClass="modalForm" closeOnEscape="false">
                 <h:panelGroup>
-                    <h:form styleClass="row" col-md="12" id="formAbastecimentos" style="padding-bottom:5%">
+                    <b:form styleClass="row" id="formAbastecimentos" style="padding-bottom:5%">
                         <b:messages col-md="12" showDetail="true"/>
                         <b:inputText required="true" required-message="O campo Posto é obrigatório" id="posto"
                                      col-md="8"
@@ -33,7 +32,7 @@
                                            itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
                         </b:selectOneMenu>
 
-                        <b:inputText mask="9{1,4}.9{2,2}" required="true"
+                        <b:inputText mask="9{1,4}.99" required="true"
                                      required-message="O campo Valor por Litro é obrigatório" id="valorLitro" col-md="2"
                                      update="litros kmRodagem" onkeypress="ajax:abastecimentosController.calcular()"
                                      onchange="ajax:abastecimentosController.calcular()"
@@ -68,35 +67,38 @@
                                      value="#{abastecimentosController.abastecimentos.veiculo.kmapercorrer}"
                                      mask="9{1,4}.9{2,2}" label="Kilometragem Restante"/>
 
-                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-                                         action="#{abastecimentosController.salvar}"/>
-                        <b:button onclick="return false" col-md="3" value="Fechar"
-                                  dismiss="modal"/>
-                    </h:form>
+                        <b:commandButton onupdate="@form" dismiss="modal"
+                                         oncomplete="if(!validationFailed) { $('.modalForm').modal('hide') }"
+                                         col-md="2" look="success" icon="check" value="Salvar"
+                                         onclick="ajax:abastecimentosController.salvar()"/>
+                        <b:commandButton col-md="3" value="Fechar"
+                                         onclick="$('.modalForm').modal('hide')"/>
+
+                        <b:fetchBeanInfos/>
+                    </b:form>
                 </h:panelGroup>
             </b:modal>
             <h:panelGroup>
                 <h2 style="padding-bottom: 2%">Abastecimentos</h2>
-                <h:form styleClass="row" id="formAbastecimentosLista" style="overflow-x: auto"
-                        horizontal="true">
+                <b:form styleClass="row" id="formAbastecimentosLista" autoUpdate="true" horizontal="true">
                     <b:dataTable responsive="true" paginated="true" id="grid" col-sm="12"
                                  value="#{abastecimentosController.listAbastecimentos}" var="c"
                                  customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                         <b:dataTableColumn value="#{c.posto}" label="Posto de Combustivel"/>
-                        <b:dataTableColumn value="#{c.valorLitro}" label="Lt. da Gasolina"/>
-                        <b:dataTableColumn value="#{c.valorPago}" label="Valor pago"/>
-                        <b:dataTableColumn value="#{c.litros}" label="Litragem total"/>
+                        <b:dataTableColumn value="#{c.valorLitro}" dataType="numeric" label="Lt. da Gasolina"/>
+                        <b:dataTableColumn value="#{c.valorPago}" dataType="numeric" label="Valor pago"/>
+                        <b:dataTableColumn value="#{c.litros}" dataType="numeric" label="Litragem total"/>
                         <b:dataTableColumn value="#{c.hodometroInformado}" label="Hodometro"/>
                         <b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo"/>
                         <b:dataTableColumn value="#{c.usuario.nome}" label="Condutor"/>
-                        <b:dataTableColumn value="#{c.data}" label="Data abastecimento"/>
+                        <b:dataTableColumn value="#{c.data}" dataType="date" label="Data abastecimento"/>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Ações"/>
                             </f:facet>
-                            <b:commandButton value="Editar" icon="pencil" label="Editar"
-                                             styleClass="btn btn-default"
-                                             action="#{abastecimentosController.editar(c)}"/>
+                            <b:commandButton value="Editar" look="" update="formAbastecimentos"
+                                             onclick="ajax:abastecimentosController.editar(c)"
+                                             oncomplete="$('.modalForm').modal('show')"/>
                             <p/>
                             <b:commandButton value="Excluir" icon="trash" label="Excluir"
                                              styleClass="btn btn-danger"
@@ -104,10 +106,12 @@
                                              onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:abastecimentosController.novo()"
+                                     oncomplete="$('.modalForm').modal('show')"
+                                     update="formAbastecimentos" size="lg"/>
+                </b:form>
             </h:panelGroup>
-            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
-                      size="lg"/>
         </h:body>
     </ui:define>
 </ui:composition>

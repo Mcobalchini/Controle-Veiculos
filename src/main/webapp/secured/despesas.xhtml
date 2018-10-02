@@ -1,17 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/applayout/pageTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
         <h:body>
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
-                     title="Adicionar Despesa" styleClass="modal"
-                     id="modalForm">
+            <b:modal backdrop="false" closable="false" closeOnEscape="false" size="modal-lg"
+                     title="Adicionar Despesa" styleClass="modalForm">
                 <h:panelGroup>
                     <b:form styleClass="row" col-md="12" id="formDespesas" style="padding-bottom:5%">
                         <b:messages col-md="12" showDetail="true"/>
@@ -28,7 +25,6 @@
                                            itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
                         </b:selectOneMenu>
 
-
                         <b:inputText mask="9{1,4}.9{2,2}" required="true" required-message="O campo Valor é obrigatório"
                                      id="valor" col-md="5"
                                      value="#{despesasController.despesas.valor}" label="Valor"/>
@@ -44,34 +40,41 @@
                                            itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
                         </b:selectOneMenu>
 
-                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-                                         action="#{despesasController.salvar}"/>
-                        <b:button onclick="return false" col-md="3" value="Fechar"
-                                  dismiss="modal"/>
+                        <b:commandButton update="@form" dismiss="modal"
+                                         oncomplete="if(!validationFailed) { $('.modalForm').modal('hide') }"
+                                         col-md="2" value="Salvar" look="success"
+                                         onclick="ajax:despesasController.salvar()"/>
+                        <b:commandButton onclick="$('.modalForm').modal('hide')" col-md="3"
+                                         value="Fechar" update="@form"/>
+                        <b:fetchBeanInfos/>
                     </b:form>
                 </h:panelGroup>
             </b:modal>
             <h:panelGroup>
                 <h2 style="padding-bottom: 2%">Despesas</h2>
-                <h:form styleClass="row" id="formDespesasLista" style="overflow-x: auto"
+                <b:form styleClass="row" id="formDespesasLista" autoUpdate="true"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{despesasController.listDespesasUser}" var="d"
                                  style="margin-top:5%!important"
                                  customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-                        <b:dataTableColumn value="#{d.descricao}" label="Descrição"/>
+                        <b:dataTableColumn styleClass="marksColumn" value="#{d.descricao}" label="Descrição"/>
                         <b:dataTableColumn value="#{d.tipo.descricao}" label="Tipo"/>
                         <b:dataTableColumn value="#{d.valor}" label="Valor"/>
-                        <b:dataTableColumn rendered="#{d.status != true}" value="Não pago" label="Status"/>
-                        <b:dataTableColumn rendered="#{d.status == true}" value="Pago" label="Status"/>
+                        <b:dataTableColumn rendered="#{!d.status}" value="Não pago" label="Status"/>
+                        <b:dataTableColumn rendered="#{d.status}" value="Pago" label="Status"/>
                         <b:dataTableColumn value="#{d.veiculo.nome}" label="Veículo"/>
                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ações"/>
+                            </f:facet>
                             <b:commandButton rendered="#{d.tipo.id != 3 and d.tipo.id != 2}" value="Editar"
                                              icon="pencil" label="Editar"
                                              styleClass="btn btn-default"
-                                             action="#{despesasController.editar(d)}"/>
-                        </h:column>
-                        <h:column>
+                                             update="formDespesas"
+                                             onclick="ajax:despesasController.editar(d)"
+                                             oncomplete="$('.modalForm').modal('show')"/>
+                            <p/>
                             <b:commandButton rendered="#{d.tipo.id != 3 and d.tipo.id != 2}" value="Excluir"
                                              icon="trash" label="Excluir"
                                              styleClass="btn btn-danger"
@@ -79,10 +82,10 @@
                                              onclick="if(!confirm('Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                    <b:commandButton onclick="ajax:despesasController.novo()" col-md="3" value="Fechar"
+                                     update="formDespesas" oncomplete="$('.modalForm').modal('hide')"/>
+                </b:form>
             </h:panelGroup>
-            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
-                      size="lg"/>
         </h:body>
     </ui:define>
 </ui:composition>

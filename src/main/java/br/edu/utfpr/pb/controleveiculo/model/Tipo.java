@@ -18,10 +18,4 @@ public class Tipo implements Serializable {
     @Column(length = 250, nullable = false)
     private String descricao;
 
-    @Override
-    public String toString() {
-        return "Tipo [id=" + id + ", descricao=" + descricao + "]";
-    }
-
-
 }

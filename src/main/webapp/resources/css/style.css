@@ -69,3 +69,25 @@
     border-radius: 40px;
     z-index: 1;
 }
+
+.marksColumn {
+    width: 500px;
+}
+
+.paging_full_numbers span.paginate_button {
+    border: 1px solid #77D5F7;
+    color: #FFFFFF;
+    font-weight: normal;
+}
+
+.paging_full_numbers span.paginate_button:hover {
+    border: 1px solid #448DAE;
+    color: #0268890;
+    font-weight: normal;
+}
+
+.paging_full_numbers span.paginate_active {
+    border: 1px solid #ACDD4A;
+    color: #FFFFFF;
+    font-weight: normal;
+}

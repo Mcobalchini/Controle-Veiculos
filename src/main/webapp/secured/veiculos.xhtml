@@ -4,15 +4,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+>
     <ui:define name="content">
         <h:body>
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
-                     title="Adicionar Veiculo" styleClass="modal"
-                     id="modalForm">
+            <b:modal backdrop="false" closable="false" closeOnEscape="false" size="modal-lg"
+                     title="Adicionar Veiculo" styleClass="modalForm">
                 <h:panelGroup>
-                    <h:form styleClass="row col-sm-12" id="formVeiculo" style="padding-bottom:5%;margin-left: 0.3%">
+                    <b:form styleClass="row col-sm-12" id="formVeiculo" style="padding-bottom:5%;margin-left: 0.3%">
                         <b:messages col-md="12" showDetail="true"/>
                         <b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome"
                                      label="Nome do veículo" col-md="12"
@@ -38,17 +37,19 @@
                                            itemLabel="#{modelo.descricao}" itemValue="#{modelo}"/>
                         </b:selectOneMenu>
 
-                        <b:commandButton col-md="3" value="Salvar" look="success"
-                                         action="#{veiculoController.salvar}"
-                                         dismiss="none"/>
-                        <b:button onclick="return false" col-md="3" value="Fechar"
-                                  dismiss="modal"/>
-                    </h:form>
+                        <b:commandButton update="@form" dismiss="modal"
+                                         oncomplete="if(!validationFailed) { $('.modalForm').modal('hide') }"
+                                         col-md="2" value="Salvar" look="success"
+                                         onclick="ajax:veiculoController.salvar()"/>
+                        <b:commandButton onclick="$('.modalForm').modal('hide')" col-md="3"
+                                         value="Fechar" update="@form"/>
+                        <b:fetchBeanInfos/>
+                    </b:form>
                 </h:panelGroup>
             </b:modal>
             <h:panelGroup>
                 <h2 style="padding-bottom: 2%">Veiculos</h2>
-                <h:form styleClass="row" id="formVeiculoLista">
+                <b:form styleClass="row" id="formVeiculoLista" autoUpdate="true">
                     <b:dataTable value="#{veiculoController.veiculosUsuario}"
                                  style="margin-top:4%;" colSm="12" responsive="true"
                                  var="e"
@@ -84,17 +85,19 @@
                                 <h:outputText value="Ações"/>
                             </f:facet>
                             <b:commandButton value="Editar" look=""
-                                             action="#{veiculoController.editar(e)}"/>
+                                             update="formVeiculo"
+                                             onclick="ajax:veiculoController.editar(e)"
+                                             oncomplete="$('.modalForm').modal('show')"/>
                             <p/>
                             <b:commandButton value="Excluir" look="danger"
                                              action="#{veiculoController.excluir(e.id)}"
                                              onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                    <b:commandButton onclick="ajax:veiculoController.novo()" col-md="3" value="Fechar"
+                                     update="formVeiculo" oncomplete="$('.modalForm').modal('hide')"/>
+                </b:form>
             </h:panelGroup>
-            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
-                      size="lg"/>
         </h:body>
     </ui:define>
 </ui:composition>

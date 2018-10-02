@@ -21,15 +21,15 @@ public class Abastecimentos implements Serializable {
     @Column(length = 250, nullable = false)
     private String posto;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, precision = 2)
     private Double valorLitro;
 
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, precision = 2)
     private Double valorPago;
 
     @Getter
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, precision = 5)
     private Double litros;
 
     @Column(length = 10)

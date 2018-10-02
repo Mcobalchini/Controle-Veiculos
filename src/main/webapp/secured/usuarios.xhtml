@@ -12,7 +12,7 @@
                 <h:panelGroup style="align:center">
 
                     <b:messages></b:messages>
-                    <h:form styleClass="row" id="formUsuario">
+                    <b:form styleClass="row" id="formUsuario">
 
                         <b:inputText required="true" required-message="O campo Nome é obrigatório" id="nome"
                                      label="Nome" col-md="12"
@@ -31,10 +31,10 @@
                                          action="#{usuarioController.salvar}"/>
                         <b:commandButton col-md="2" value="Novo"
                                          action="#{usuarioController.novo}"/>
-                    </h:form>
+                    </b:form>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:form styleClass="row" id="formUsuarioLista" style="margin-top:18%;overflow-x: auto">
+                    <b:form styleClass="row" id="formUsuarioLista" style="margin-top:18%;overflow-x: auto">
                         <b:dataTable responsive="true" paginated="false" value="#{usuarioController.listUsuario}"
                                      col-sm="12"
                                      var="u"
@@ -58,7 +58,7 @@
                                                  onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                             </h:column>
                         </b:dataTable>
-                    </h:form>
+                    </b:form>
                 </h:panelGroup>
             </h:body>
         </b:container>

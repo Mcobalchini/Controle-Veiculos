@@ -7,11 +7,11 @@
     <ui:define name="content">
         <h:body>
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
+            <b:modal backdrop="false" closable="false" closeOnEscape="false" size="modal-lg"
                      title="Adicionar Agendamento" styleClass="modal"
                      id="modalForm">
                 <h:panelGroup>
-                    <h:form styleClass="row" id="formAgendamentos" style="padding-bottom:5%">
+                    <b:form styleClass="row" id="formAgendamentos" style="padding-bottom:5%">
                         <b:messages col-md="12" showDetail="true"/>
                         <b:inputText required="true" required-message="O campo Descriçao é obrigatório" id="descricao"
                                      col-md="12"
@@ -41,12 +41,12 @@
                                          action="#{agendamentosController.salvar}"/>
                         <b:button onclick="return false" col-md="3" value="Fechar"
                                   dismiss="modal"/>
-                    </h:form>
+                    </b:form>
                 </h:panelGroup>
             </b:modal>
             <h:panelGroup style="width:50%">
                 <h2 style="padding-bottom: 2%">Agendamentos</h2>
-                <h:form styleClass="row" id="formAgendamentosLista" style="overflow-x: auto"
+                <b:form styleClass="row" id="formAgendamentosLista" style="overflow-x: auto"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{agendamentosController.listAgendamentos}" var="c"
@@ -73,7 +73,7 @@
                                              onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                </b:form>
                 <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm"
                           p:data-toggle="modal"
                           size="lg"/>

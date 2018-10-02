@@ -52,7 +52,6 @@ public class IndexController {
     }
 
     private void calcCalibragem(Veiculo veiculo) {
-        System.out.println(veiculo.getKmPneus());
         if (veiculo.getKmPneus() >= 20000) {
             mensagem = "Troque os pneus do veículo " + veiculo.getNome();
             messages.add(mensagem);

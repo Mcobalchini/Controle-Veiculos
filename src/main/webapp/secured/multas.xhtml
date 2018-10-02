@@ -5,13 +5,12 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
         <h:body>
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
-                     title="Adicionar Multa" styleClass="modal"
-                     id="modalForm">
+            <b:modal backdrop="false" closable="false" closeOnEscape="false" size="modal-lg"
+                     title="Adicionar Multa" styleClass="modalForm">
                 <h:panelGroup>
                     <b:form styleClass="row" id="formMultas" style="padding-bottom:5%">
                         <b:messages col-md="12" showDetail="true"/>
@@ -63,49 +62,49 @@
                                           value="#{multasController.multas.dataVencimento}" required="true"
                                           label="Data de Vencimento" col-md="3"/>
 
-                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-                                         action="#{multasController.salvar}"/>
-                        <b:button onclick="return false" col-md="3" value="Fechar"
-                                  dismiss="modal"/>
+                        <b:commandButton update="@form" dismiss="modal"
+                                         oncomplete="if(!validationFailed) { $('.modalForm').modal('hide') }"
+                                         col-md="2" value="Salvar" look="success"
+                                         onclick="ajax:multasController.salvar()"/>
+                        <b:commandButton onclick="$('.modalForm').modal('hide')" col-md="3"
+                                         value="Fechar" update="@form"/>
+                        <b:fetchBeanInfos/>
                     </b:form>
                 </h:panelGroup>
             </b:modal>
             <h:panelGroup style="width:50%">
-                <h:form styleClass="row" id="formMultasLista" horizontal="true">
+                <b:form styleClass="row" id="formMultasLista" horizontal="true" autoUpdate="true">
                     <b:dataTable id="grid" col-sm="12"
                                  value="#{multasController.listMultas}" var="c"
                                  fixedHeader="true"
                                  style="margin-top:2%!important"
                                  customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                         <b:dataTableColumn value="#{c.motivo}" label="Motivo"/>
-                        <b:dataTableColumn value="#{c.usuario.nome}" label="Condutor"/>
+                        <b:dataTableColumn styleClass="marksColumn" value="#{c.usuario.nome}" label="Condutor"/>
                         <b:dataTableColumn value="#{c.veiculo.nome}" label="Veículo"/>
-                        <b:dataTableColumn value="#{c.dataMulta}" label="Data da Multa"/>
-                        <b:dataTableColumn value="#{c.dataVencimento}" label="Data de Vencimento"/>
+                        <b:dataTableColumn value="#{c.dataMulta}" label="Data"/>
+                        <b:dataTableColumn value="#{c.dataVencimento}" label="Vencimento"/>
                         <b:dataTableColumn value="#{c.gravidade}" label="Gravidade"/>
                         <b:dataTableColumn value="#{c.valor}" label="Valor"/>
                         <b:dataTableColumn value="#{c.pontos}" label="Pontos"/>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Editar"/>
+                                <h:outputText value="Ações"/>
                             </f:facet>
-                            <b:commandButton value="Editar" look=""
-                                             action="#{multasController.editar(c)}"/>
-                        </h:column>
+                            <b:commandButton value="Editar" look="" update="formMultas"
+                                             onclick="ajax:multasController.editar(c)"
+                                             oncomplete="$('.modalForm').modal('show')"/>
 
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Excluir"/>
-                            </f:facet>
+                            <p/>
                             <b:commandButton value="Excluir" look="danger"
                                              action="#{multasController.excluir(c.id)}"
                                              onclick="if(!confirm('Este processo irá excluir a despesa vinculada a este registro. Deseja realmente excluir?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                    <b:commandButton onclick="ajax:multasController.novo()" col-md="3" value="Fechar"
+                                     update="formMultas" oncomplete="$('.modalForm').modal('hide')"/>
+                </b:form>
             </h:panelGroup>
-            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
-                      size="lg"/>
         </h:body>
     </ui:define>
 </ui:composition>

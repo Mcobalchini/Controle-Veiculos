@@ -5,18 +5,16 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="content">
-        <h:body>
+        <h:body id="corpo">
             <b:messages col-md="12" showDetail="true"/>
-            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
-                     title="Adicionar Modelo" styleClass="modal"
+            <b:modal backdrop="false" closable="false" closeOnEscape="false" size="modal-lg"
+                     title="Adicionar Modelo" styleClass="modalForm"
                      id="modalForm">
-                <h:panelGroup style="align:center">
+                <b:form styleClass="row" id="formModelo" style="padding-bottom:5%">
                     <b:messages col-md="12" showDetail="true"/>
-                    <h:form styleClass="row" id="formModelo" style="padding-bottom:5%">
-
-                        <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
+                    <b:inputText required="true" requiredMessage="O campo Descrição é obrigatório" id="descricao"
                                      label="Descrição" col-md="12"
                                      value="#{modeloController.modelo.descricao}"/>
 
@@ -31,44 +29,42 @@
                             <f:selectItems var="marca" value="#{modeloController.listMarcas}"
                                            itemLabel="#{marca.descricao}" itemValue="#{marca}"/>
                         </b:selectOneMenu>
-
-                        <b:commandButton col-md="2" value="Salvar" look="success" action="#{modeloController.salvar}"/>
-                        <b:button onclick="return false" col-md="3" value="Fechar"
-                                  dismiss="modal"/>
-                    </h:form>
-                </h:panelGroup>
+                    <b:commandButton update="@form formModeloLista" dismiss="modal"
+                                     oncomplete="if(!validationFailed) { $('.modalForm').modal('hide');formModeloListaJ_idt21Widget.DataTable().destroy() }"
+                                     col-md="2" value="Salvar" look="success" onclick="ajax:modeloController.salvar()"/>
+                    <b:commandButton col-md="3" value="Fechar"
+                                     update="@form" onclick="$('.modalForm').modal('hide')"/>
+                    <b:fetchBeanInfos/>
+                </b:form>
             </b:modal>
             <h:panelGroup>
                 <h2 style="padding-bottom: 2%">Modelos</h2>
-                <h:form styleClass="row" id="formModeloLista">
+                <b:form styleClass="row" id="formModeloLista">
                     <b:dataTable value="#{modeloController.modelos}" var="c" fixedHeader="true"
-                                 colSm="12" style="width:100%!important;margin-top:5%!important" responsive="true"
+                                 colSm="12" responsive="true" ret
                                  customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-                        <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
+                        <b:dataTableColumn styleClass="marksColumn" value="#{c.descricao}" label="Descrição"/>
                         <b:dataTableColumn value="#{c.ano}" label="Ano"/>
-                        <b:dataTableColumn value="#{c.marca.descricao}" label="Marca"/>
+                        <b:dataTableColumn styleClass="marksColumn" value="#{c.marca.descricao}" label="Marca"/>
 
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Editar"/>
+                                <h:outputText value="Ações"/>
                             </f:facet>
-                            <b:commandButton value="Editar" look=""
-                                             action="#{modeloController.editar(c)}"/>
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Excluir"/>
-                            </f:facet>
+                            <b:commandButton value="Editar" look="" update="modalForm"
+                                             onclick="ajax:modeloController.editar(c)"
+                                             oncomplete="$('.modalForm').modal('show')"/>
+                            <p/>
                             <b:commandButton value="Excluir" look="danger"
                                              action="#{modeloController.excluir(c.id)}"
                                              onclick="if(!confirm('Confirma a exclusão?!')) return false;"/>
                         </h:column>
                     </b:dataTable>
-                </h:form>
+                    <b:commandButton styleClass="roundedButton" value="+" look="info"
+                                     onclick="ajax:modeloController.novo()" oncomplete="$('.modalForm').modal('show')"
+                                     update="formModelo" size="lg"/>
+                </b:form>
             </h:panelGroup>
-            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
-                      size="lg"/>
         </h:body>
     </ui:define>
 </ui:composition>

@@ -48,8 +48,8 @@ public class TipoController {
         tipo = new Tipo();
     }
 
-    public void editar(Tipo tipos) {
-        this.tipo = tipos;
+    public void editar(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public void excluir(Long id) {
