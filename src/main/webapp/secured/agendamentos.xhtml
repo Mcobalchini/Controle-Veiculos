@@ -1,56 +1,56 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/applayout/pageTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="content">
-        <h:head>
-            <title>Agendamentos - Spring + JSF</title>
-        </h:head>
-        <b:container>
-            <body>
-            <h:panelGroup>
-                <h:form styleClass="row" id="formAgendamentos">
-                    <b:messages col-md="12" showDetail="true"/>
-                    <b:inputText required="true" required-message="O campo Descriçao é obrigatório" id="descricao"
-                                 col-md="12"
-                                 value="#{agendamentosController.agendamentos.descricao}" label="Descrição"/>
+        <h:body>
+            <b:messages col-md="12" showDetail="true"/>
+            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
+                     title="Adicionar Agendamento" styleClass="modal"
+                     id="modalForm">
+                <h:panelGroup>
+                    <h:form styleClass="row" id="formAgendamentos" style="padding-bottom:5%">
+                        <b:messages col-md="12" showDetail="true"/>
+                        <b:inputText required="true" required-message="O campo Descriçao é obrigatório" id="descricao"
+                                     col-md="12"
+                                     value="#{agendamentosController.agendamentos.descricao}" label="Descrição"/>
 
-                    <b:selectOneMenu required="true" required-message="O campo Despesa é obrigatório" id="despesa"
-                                     label="Despesa" col-md="5"
-                                     value="#{agendamentosController.agendamentos.despesa}"
-                                     converter="#{despesasConverter}">
-                        <f:selectItems var="despesa" value="#{agendamentosController.listDespesas}"
-                                       itemLabel="#{despesa.descricao}" itemValue="#{despesa}"/>
-                    </b:selectOneMenu>
-                    <b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo"
-                                     label="Veículo" col-md="5"
-                                     value="#{agendamentosController.agendamentos.veiculo}"
-                                     converter="#{veiculoConverter}">
-                        <f:selectItems var="veiculo" value="#{agendamentosController.listVeiculos}"
-                                       itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
-                    </b:selectOneMenu>
-                    <b:dateTimePicker format="DD/MM/YYYY" required-message="O campo Data é obrigatório"
-                                      mode="toggle-icon" showWeek="true"
-                                      value="#{agendamentosController.agendamentos.data}" required="true" label="Data:"
-                                      col-sm="2"/>
+                        <b:selectOneMenu required="true" required-message="O campo Despesa é obrigatório" id="despesa"
+                                         label="Despesa" col-md="5"
+                                         value="#{agendamentosController.agendamentos.despesa}"
+                                         converter="#{despesasConverter}">
+                            <f:selectItems var="despesa" value="#{agendamentosController.listDespesas}"
+                                           itemLabel="#{despesa.descricao}" itemValue="#{despesa}"/>
+                        </b:selectOneMenu>
+                        <b:selectOneMenu required="true" required-message="O campo Veículo é obrigatório" id="veiculo"
+                                         label="Veículo" col-md="5"
+                                         value="#{agendamentosController.agendamentos.veiculo}"
+                                         converter="#{veiculoConverter}">
+                            <f:selectItems var="veiculo" value="#{agendamentosController.listVeiculos}"
+                                           itemLabel="#{veiculo.nome}" itemValue="#{veiculo}"/>
+                        </b:selectOneMenu>
+                        <b:dateTimePicker format="DD/MM/YYYY" required-message="O campo Data é obrigatório"
+                                          mode="toggle-icon" showWeek="true"
+                                          value="#{agendamentosController.agendamentos.data}" required="true"
+                                          label="Data:"
+                                          col-sm="2"/>
 
-                    <b:commandButton col-md="2" value="Novo" action="#{agendamentosController.novo}"/>
-                    <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-                                     action="#{agendamentosController.salvar}"/>
-
-                </h:form>
-
-            </h:panelGroup>
+                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+                                         action="#{agendamentosController.salvar}"/>
+                        <b:button onclick="return false" col-md="3" value="Fechar"
+                                  dismiss="modal"/>
+                    </h:form>
+                </h:panelGroup>
+            </b:modal>
             <h:panelGroup style="width:50%">
+                <h2 style="padding-bottom: 2%">Agendamentos</h2>
                 <h:form styleClass="row" id="formAgendamentosLista" style="overflow-x: auto"
                         horizontal="true">
                     <b:dataTable responsive="true" paginated="false" id="grid" col-sm="12"
                                  value="#{agendamentosController.listAgendamentos}" var="c"
-                                 style="margin-top:7%"
+                                 style="margin-top:5%!important"
                                  customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                         <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
                         <b:dataTableColumn value="#{c.despesa.descricao}" label="Despesa"/>
@@ -74,10 +74,11 @@
                         </h:column>
                     </b:dataTable>
                 </h:form>
-
+                <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm"
+                          p:data-toggle="modal"
+                          size="lg"/>
             </h:panelGroup>
-            </body>
-        </b:container>
+        </h:body>
     </ui:define>
 </ui:composition>
 

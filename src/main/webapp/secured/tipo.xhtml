@@ -1,60 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/applayout/pageTemplate.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:b="http://bootsfaces.net/ui"
-				xmlns:ui="http://java.sun.com/jsf/facelets">
-	<ui:define name="content">
-		<b:container>
-			<body>
-				<h:panelGroup>
-					<b:form styleClass="row" id="formTipo">
-						<b:messages  col-md="12" showDetail="true" />
-						<b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao" col-md="12"
-							value="#{tipoController.tipo.descricao}" label="Descrição" />
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="content">
+        <h:body>
+            <b:messages col-md="12" showDetail="true"/>
+            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
+                     title="Adicionar Tipo de Despesa" styleClass="modal"
+                     id="modalForm">
+                <h:panelGroup>
+                    <b:form styleClass="row" id="formTipo" style="padding-bottom:5%">
+                        <b:messages col-md="12" showDetail="true"/>
+                        <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
+                                     col-md="12"
+                                     value="#{tipoController.tipo.descricao}" label="Descrição"/>
 
-						<b:commandButton col-md="2" value="Novo" action="#{tipoController.novo}" />
-						<b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-							action="#{tipoController.salvar}" />
-					</b:form>
+                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+                                         action="#{tipoController.salvar}"/>
+                        <b:button onclick="return false" col-md="3" value="Fechar"
+                                  dismiss="modal"/>
+                    </b:form>
+                </h:panelGroup>
+            </b:modal>
+            <h:panelGroup style="width:100%">
+                <h2 style="padding-bottom: 2%">Tipos</h2>
+                <h:form styleClass="row" id="formTipoLista"
+                        horizontal="true">
+                    <b:dataTable responsive="true" id="grid" colSm="12"
+                                 value="#{tipoController.listTipo}" var="c"
+                                 style="margin-top:5%!important"
+                                 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                        <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <b:commandButton value="Editar" icon="pencil"
+                                             styleClass="btn btn-default"
+                                             action="#{tipoController.editar(c)}"
+                                             rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
+                        </h:column>
 
-				</h:panelGroup>
-				<h:panelGroup style="width:100%">
-					<h:form styleClass="row" id="formTipoLista" style="overflow-x: auto"
-							horizontal="true">
-						<b:dataTable responsive="true" paginated="true" id="grid" colLg="12"
-									 value="#{tipoController.listTipo}" var="c"
-									 style="margin-top:7%"
-									 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-							<b:dataTableColumn value="#{c.descricao}" label="Descrição" />
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Editar" />
-								</f:facet>
-								<b:commandButton value="Editar" icon="pencil"
-									styleClass="btn btn-default"
-									action="#{tipoController.editar(c)}" 
-									rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
-							</h:column>
-
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Excluir" />
-								</f:facet>
-								<b:commandButton value="Excluir" icon="trash"
-									styleClass="btn btn-danger"
-									action="#{tipoController.excluir(c.id)}"
-									onclick="if(!confirm('Deseja realmente excluir?!')) return false;" 
-									rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
-							</h:column>
-						</b:dataTable>
-					</h:form>
-
-				</h:panelGroup>
-			</body>
-		</b:container>
-	</ui:define>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <b:commandButton value="Excluir" icon="trash"
+                                             styleClass="btn btn-danger"
+                                             action="#{tipoController.excluir(c.id)}"
+                                             onclick="if(!confirm('Deseja realmente excluir?!')) return false;"
+                                             rendered="#{c.id != 1 and c.id != 2 and c.id != 3}"/>
+                        </h:column>
+                    </b:dataTable>
+                </h:form>
+            </h:panelGroup>
+            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
+                      size="lg"/>
+        </h:body>
+    </ui:define>
 </ui:composition>
 
 

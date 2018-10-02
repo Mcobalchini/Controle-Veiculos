@@ -5,52 +5,58 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="content">
-        <body>
-        <h:panelGroup>
-            <b:form styleClass="row" id="formMarcas">
-                <b:messages col-md="12" showDetail="true"/>
-                <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
-                             col-md="12"
-                             value="#{marcasController.marcas.descricao}" label="Descrição"/>
-                <b:commandButton col-md="2" value="Novo" action="#{marcasController.novo}"/>
-                <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
-                                 action="#{marcasController.salvar}"/>
-            </b:form>
+        <h:body>
+            <b:messages col-md="12" showDetail="true"/>
+            <b:modal backdrop="false" closable="false" style="align:center" size="modal-lg"
+                     title="Adicionar Marca" styleClass="modal"
+                     id="modalForm">
+                <h:panelGroup style="align:center">
+                    <b:form styleClass="row" id="formMarcas" style="padding-bottom:5%">
+                        <b:messages col-md="12" showDetail="true"/>
+                        <b:inputText required="true" required-message="O campo Descrição é obrigatório" id="descricao"
+                                     col-md="12"
+                                     value="#{marcasController.marcas.descricao}" label="Descrição"/>
+                        <b:commandButton col-md="2" look="success" icon="check" value="Salvar"
+                                         action="#{marcasController.salvar}"/>
+                        <b:button onclick="return false" col-md="3" value="Fechar"
+                                  dismiss="modal"/>
+                    </b:form>
+                </h:panelGroup>
+            </b:modal>
+            <h:panelGroup>
+                <h2 style="padding-bottom: 2%">Marcas</h2>
+                <h:form styleClass="row" id="formMarcasLista">
+                    <b:dataTable value="#{marcasController.listMarcas}" var="c" fixedHeader="true"
+                                 colSm="12" colLg="6"
+                                 style="width:100%!important;margin-top:2%!important" responsive="true"
+                                 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                        <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <b:commandButton value="Editar" icon="pencil"
+                                             styleClass="btn btn-default"
+                                             action="#{marcasController.editar(c)}"/>
+                        </h:column>
 
-        </h:panelGroup>
-        <h:panelGroup>
-            <h:form styleClass="row" id="formMarcasLista" style="overflow-x: auto">
-                <b:dataTable value="#{marcasController.listMarcas}" var="c"
-                             style="margin-top:7%" colMd="12" responsive="true"
-                             customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-                    <b:dataTableColumn value="#{c.descricao}" label="Descrição"/>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Editar"/>
-                        </f:facet>
-                        <b:commandButton value="Editar" icon="pencil"
-                                         styleClass="btn btn-default"
-                                         action="#{marcasController.editar(c)}"/>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Excluir"/>
-                        </f:facet>
-                        <b:commandButton value="Excluir" icon="trash"
-                                         styleClass="btn btn-danger"
-                                         action="#{marcasController.excluir(c.id)}"
-                                         onclick="if(!confirm('Deseja realmente excluir?!')) return false;"/>
-                    </h:column>
-                </b:dataTable>
-            </h:form>
-
-        </h:panelGroup>
-        </body>
-
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <b:commandButton value="Excluir" icon="trash"
+                                             styleClass="btn btn-danger"
+                                             action="#{marcasController.excluir(c.id)}"
+                                             onclick="if(!confirm('Deseja realmente excluir?!')) return false;"/>
+                        </h:column>
+                    </b:dataTable>
+                </h:form>
+            </h:panelGroup>
+            <b:button styleClass="roundedButton" value="+" look="info" p:data-target="#modalForm" p:data-toggle="modal"
+                      size="lg"/>
+        </h:body>
     </ui:define>
 </ui:composition>
 

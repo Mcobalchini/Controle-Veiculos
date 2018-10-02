@@ -21,7 +21,6 @@ public class Abastecimentos implements Serializable {
     @Column(length = 250, nullable = false)
     private String posto;
 
-
     @Column(length = 50, nullable = false)
     private Double valorLitro;
 
@@ -52,8 +51,9 @@ public class Abastecimentos implements Serializable {
         return FormatUtils.formatDouble(this.litros);
     }
 
-    public double getValorLitro() {
-        return FormatUtils.formatDouble(valorLitro);
+
+    public void setValorLitro(Double valorLitro) {
+        this.valorLitro = valorLitro;
     }
 
     public Date getData() {

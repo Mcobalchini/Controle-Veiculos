@@ -54,8 +54,8 @@ public class AgendamentosController {
     public void salvar() {
         agendamentosRepository.save(agendamentos);
         FacesMessages.info("Registro salvo com sucesso!!!");
-        popularLista();
         novo();
+        popularLista();
     }
 
     public void novo() {

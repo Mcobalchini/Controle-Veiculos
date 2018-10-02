@@ -37,10 +37,9 @@ public class MarcasController {
 
     public void salvar() {
         marcasRepository.save(marcas);
-
         FacesMessages.info("Registro salvo com sucesso!");
-
         popularLista();
+        novo();
     }
 
     public void novo() {
